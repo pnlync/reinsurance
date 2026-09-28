@@ -3,7 +3,7 @@
 Flood catastrophe reinsurance & capital optimisation (portfolio project). **SPEC.md is the contract — read it in full before any work and follow §1 "How we work".**
 
 ## Key rules (from SPEC, repeated because they are the ones most often broken)
-- One module at a time in SPEC §9 order (M0, M1, ...). Before coding a module, explain it in Chinese (≤ 300 words) and wait for the owner's OK. Do not start the next module until the owner replies "continue".
+- One module at a time in SPEC §9 order (M0, M1, ...). Before coding a module, write its Chinese explanation (≤ 300 words) to `reports/modules/M<n>.md`; no need to wait for the owner's OK (see Decision authority).
 - Tests first (`tests/test_m<n>_*.py`); report every test PASS/FAIL with numbers. One commit per module: `M<n>: <module name>`.
 - Never edit the golden values in SPEC §11 or the tests that check them. A failing golden test means the implementation is wrong; report the diagnosis.
 - All parameters live in `config/*.yaml`; no hard-coded numbers in `src/` except mathematical constants. Only `floodcat.data.load` may read `data/raw/`.
