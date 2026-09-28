@@ -1,5 +1,5 @@
 {
-  "git_hash": "c24c080-dirty",
+  "git_hash": "903a6f2-dirty",
   "today": "28 September 2026",
   "calibration_start": 2009,
   "calibration_end": 2023,
@@ -104,6 +104,7 @@
   "ho_count_mean": 6.0,
   "ho_count_pct": 0.7929499999999999,
   "ho_ian_rp": 23.304591004427873,
+  "ho_largest_name": "Hurricane Ian",
   "d10_rec_coc": 0.1145554571183543,
   "d10_balanced_desc": "no reinsurance",
   "ln_balanced_desc": "20% quota share + 1-in-5 to 1-in-100 Cat XoL, 100% placed, no reinstatement",
@@ -154,5 +155,7 @@
   "band_ap_lo": 0.04,
   "band_ap_hi": 0.09,
   "dedupe_reason": " (exhaustion at 1-in-200 and 1-in-250 coincide because both event losses sit at the cap)",
+  "excel_cells": 86,
+  "excel_max_diff": 3.714665111241756e-16,
   "aic_spread": 0.6535005296403824
 }

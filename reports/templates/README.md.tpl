@@ -1,5 +1,7 @@
 # Flood Catastrophe Reinsurance & Capital Optimisation
 
+**Project page: [pnlync.github.io/reinsurance](https://pnlync.github.io/reinsurance/)** · Memo: [`reports/memo.pdf`](reports/memo.pdf) · Spec: [`SPEC.md`](SPEC.md)
+
 > For a flood insurer exposed to catastrophe accumulation, what reinsurance programme should it buy, how much should it pay, and how much tail risk and economic capital does that programme remove?
 
 A reinsurance decision study for a stylised Gulf Coast flood portfolio (FL, TX, LA, MS, AL) built from public NFIP data. Historical flood events from {{calibration_start}}–{{calibration_end}} are restated to 2025 exposure (USD {{portfolio_tiv_bn:,.0f}}bn insured value, {{portfolio_policies:,.0f}} insured units) and turned into a stochastic annual loss model of {{n_sims:,}} simulated years. {{n_programmes}} quota-share and catastrophe excess-of-loss programmes are priced on a technical basis and compared on net cost against the 99.5% one-year economic capital proxy they release.

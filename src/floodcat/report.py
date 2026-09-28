@@ -5,6 +5,7 @@ reports/templates/ whose only numbers are {{key:format}} placeholders filled fro
 """
 from __future__ import annotations
 
+import html
 import json
 import re
 import shutil
@@ -123,7 +124,7 @@ def collect() -> dict:
         "eo_event": eo["removed_event"], "eo_gross_ec": float(eo["gross_ec_995"]), "eo_ec_change": float(eo["gross_ec_995"] / gross_ec - 1), "eo_ec_drop": float(1 - eo["gross_ec_995"] / gross_ec),
         "eo_balanced_desc": describe(eo["balanced_id"]), "eo_rec_relief_pct": float(eo["base_rec_relief_pct"]), "eo_rec_coc": float(eo["base_rec_implied_coc"]),
         "ho_count_obs": int(count["observed"]), "ho_count_mean": float(count["model_mean"]), "ho_count_pct": float(count["percentile"]),
-        "ho_ian_rp": float(ian["model_return_period"]),
+        "ho_ian_rp": float(ian["model_return_period"]), "ho_largest_name": ian["note"],
         "d10_rec_coc": float(sens.loc["d_10", "base_rec_implied_coc"]), "d10_balanced_desc": describe(sens.loc["d_10", "balanced_id"]),
         "ln_balanced_desc": describe(sens.loc["severity_lognormal", "balanced_id"]),
         "cap5_balanced_desc": describe(sens.loc["event_cap_5x", "balanced_id"]),
@@ -142,6 +143,7 @@ def collect() -> dict:
         **_config_constants(ri, port, sim),
         "dedupe_reason": (" (exhaustion at 1-in-200 and 1-in-250 coincide because both event losses sit at the cap)"
                           if float(ep.loc[200, "oep"]) >= 0.999 * fits["cap"] and float(ep.loc[250, "oep"]) >= 0.999 * fits["cap"] else ""),
+        "excel_cells": _j("excel_check.json")["n_cells"], "excel_max_diff": _j("excel_check.json")["max_rel_diff"],
         "aic_spread": max(c["aic"] for c in fits["severity"]["candidates"].values()) - min(c["aic"] for c in fits["severity"]["candidates"].values()),
     }
 
@@ -203,55 +205,36 @@ def md_table(header: list[str], rows: list[list[str]], widths: list[int]) -> str
     return "\n".join(lines)
 
 
-def tables(nums: dict) -> dict:
-    """Markdown tables for the memo, built from outputs."""
+def html_table(header: list[str], rows: list[list[str]], numeric: set[int]) -> str:
+    """Same table for the web page; numeric columns right-aligned (site.css `.n`)."""
+    def cell(tag: str, i: int, v: str) -> str:
+        v = html.escape(v).replace("`", "")
+        return f"<{tag}{' class=\"n\"' if i in numeric else ''}>{v}</{tag}>"
+    head = "<tr>" + "".join(cell("th", i, h) for i, h in enumerate(header)) + "</tr>"
+    body = "".join("<tr>" + "".join(cell("td", i, v) for i, v in enumerate(r)) + "</tr>" for r in rows)
+    return f'<div class="table-wrap"><table>{head}{body}</table></div>'
+
+
+SCENARIO_NAMES = {
+    "freq_125": "Event frequency × 1.25", "sev_115": "Event severity × 1.15", "tail_heavy": "Heavier tail (GPD above median, ξ + 0.1)",
+    "coc_08": "Reinsurer CoC 8%", "coc_12": "Reinsurer CoC 12%", "d_03": "Diversification d = 0.3", "d_07": "Diversification d = 0.7",
+    "h_08": "Cedent hurdle 8%", "h_12": "Cedent hurdle 12%", "u0_250": "Event threshold USD 250m", "cpi_only": "CPI-only as-if",
+    "calibration_from_2010": "Calibration from 2010", "attritional_lognormal": "Lognormal attritional",
+    "severity_lognormal": "Lognormal severity", "event_cap_5x": "Event cap 5× largest event", "d_10": "No diversification (d = 1)",
+}
+
+
+def table_data(nums: dict) -> dict:
+    """name -> (header, rows, markdown column widths, numeric column indices), all built from outputs."""
     rec = json.loads((OUTPUTS_DIR / "recommendation.json").read_text())
     metrics = pd.read_csv(TABLES_DIR / "programme_metrics.csv").set_index("programme_id")
     st = pd.read_csv(TABLES_DIR / "recommendation_stability.csv")
     sens = pd.read_csv(TABLES_DIR / "sensitivities.csv")
     top = pd.read_csv(TABLES_DIR / "top_events.csv")
     ep = pd.read_csv(TABLES_DIR / "ep_curves.csv")
-    out = {"tbl_layers": recommended_table()}
+    lp = pd.read_csv(TABLES_DIR / "layer_pricing.csv")
+    out = {}
 
-    rows = []
-    for lab, pid in (("Budget-first", rec["choices"]["budget_first"]), ("Balanced (h = 10%)", nums["recommended_id"]),
-                     ("Protection-first", rec["choices"]["protection_first"])):
-        m = metrics.loc[pid]
-        rows.append([lab, describe(pid), f"{m['net_cost']:,.0f}", f"{m['ec_net']:,.0f}", f"{m['relief_pct']:.1%}", f"{m['implied_coc']:.1%}"])
-    out["tbl_choices"] = md_table(["Choice", "Programme", "Net cost (USD m)", "Net EC (USD m)", "Relief", "Implied CoC"], rows, [14, 46, 12, 12, 8, 9])
-
-    rows = []
-    for h in rec["hull"]:
-        mc = "–" if pd.isna(h["marginal_coc"]) else f"{h['marginal_coc']:.1%}"
-        rows.append([describe(h["programme_id"]), f"{h['net_cost']:,.0f}", f"{h['ec_net'] / 1e3:,.1f}", f"{h['relief_pct']:.0%}", mc])
-    out["tbl_hull"] = md_table(["Hull point", "Net cost (USD m)", "Net EC (USD bn)", "Relief", "Marginal CoC"], rows, [52, 12, 12, 8, 10])
-
-    names = {"freq_125": "Event frequency × 1.25", "sev_115": "Event severity × 1.15", "tail_heavy": "Heavier tail (GPD above median, ξ + 0.1)",
-             "coc_08": "Reinsurer CoC 8%", "coc_12": "Reinsurer CoC 12%", "d_03": "Diversification d = 0.3", "d_07": "Diversification d = 0.7",
-             "h_08": "Cedent hurdle 8%", "h_12": "Cedent hurdle 12%", "u0_250": "Event threshold USD 250m", "cpi_only": "CPI-only as-if",
-             "calibration_from_2010": "Calibration from 2010", "attritional_lognormal": "Lognormal attritional",
-             "severity_lognormal": "Lognormal severity", "event_cap_5x": "Event cap 5× largest event", "d_10": "No diversification (d = 1)"}
-    rows = []
-    for df in (st[st["scenario"] != "base"], sens):
-        for r in df.itertuples():
-            same = "yes" if r.same_as_base else ("placement only" if _structure(r.balanced_id) == _structure(nums["recommended_id"]) else "no")
-            rows.append([names.get(r.scenario, r.scenario), f"`{r.balanced_id}`", same, f"{r.base_rec_relief_pct:.0%} / {r.base_rec_implied_coc:.1%}"])
-    out["tbl_stress"] = md_table(["Scenario", "Balanced choice", "Same contract", "Recommended: relief / CoC"], rows, [30, 34, 14, 18])
-
-    rows = ["| Event | Year | Nominal (USD m) | As-if 2025 (USD m) |", "|---|---|---|---|"]
-    for r in top.head(6).itertuples():
-        rows.append(f"| {r.name}{' (holdout)' if r.period == 'holdout' else ''} | {r.year} | {r.loss_nominal:,.0f} | {r.loss_asif:,.0f} |")
-    out["tbl_events"] = "\n".join(rows)
-
-    rows = ["| Return period | " + " | ".join(str(x) for x in ep["return_period"]) + " |", "|---|" + "---|" * len(ep),
-            "| OEP (USD bn) | " + " | ".join(f"{x / 1e3:.1f}" for x in ep["oep"]) + " |",
-            "| AEP (USD bn) | " + " | ".join(f"{x / 1e3:.1f}" for x in ep["aep"]) + " |"]
-    out["tbl_ep"] = "\n".join(rows)
-    return out
-
-
-def recommended_table() -> str:
-    rec = json.loads((OUTPUTS_DIR / "recommendation.json").read_text())
     r = rec["recommended"]
     rows = []
     if r["q"] > 0:
@@ -260,8 +243,52 @@ def recommended_table() -> str:
     for i, l in enumerate(r["layers"], 1):
         rows.append([f"Cat XoL {i}", f"{l['attach']:,.0f}", f"{l['exhaust']:,.0f}", f"1-in-{l['attach_rp']} to 1-in-{l['exhaust_rp']}", f"{l['ap']:.1%}",
                      f"{l['placement']:.0%}", str(l["n_reinst"]), f"{l['premium']:,.0f}", f"{l['rol']:.1%}", f"{l['multiple']:.1f}×"])
-    return md_table(["Treaty", "Attach (USD m)", "Exhaust (USD m)", "Return periods", "AP", "Share", "Reinst.", "Premium (USD m)", "ROL", "Multiple"],
-                    rows, [16, 10, 10, 18, 7, 7, 7, 10, 7, 8])
+    out["layers"] = (["Treaty", "Attach (USD m)", "Exhaust (USD m)", "Return periods", "AP", "Share", "Reinst.", "Premium (USD m)", "ROL", "Multiple"],
+                     rows, [16, 10, 10, 18, 7, 7, 7, 10, 7, 8], {1, 2, 4, 5, 6, 7, 8, 9})
+
+    rows = []
+    for lab, pid in (("Budget-first", rec["choices"]["budget_first"]), (f"Balanced (h = {nums['hurdle']:.0%})", nums["recommended_id"]),
+                     ("Protection-first", rec["choices"]["protection_first"])):
+        m = metrics.loc[pid]
+        rows.append([lab, describe(pid), f"{m['net_cost']:,.0f}", f"{m['ec_net']:,.0f}", f"{m['relief_pct']:.1%}", f"{m['implied_coc']:.1%}"])
+    out["choices"] = (["Choice", "Programme", "Net cost (USD m)", "Net EC (USD m)", "Relief", "Implied CoC"], rows, [14, 46, 12, 12, 8, 9], {2, 3, 4, 5})
+
+    rows = []
+    for h in rec["hull"]:
+        mc = "–" if pd.isna(h["marginal_coc"]) else f"{h['marginal_coc']:.1%}"
+        rows.append([describe(h["programme_id"]), f"{h['net_cost']:,.0f}", f"{h['ec_net'] / 1e3:,.1f}", f"{h['relief_pct']:.0%}", mc])
+    out["hull"] = (["Hull point", "Net cost (USD m)", "Net EC (USD bn)", "Relief", "Marginal CoC"], rows, [52, 12, 12, 8, 10], {1, 2, 3, 4})
+
+    rows = []
+    for df in (st[st["scenario"] != "base"], sens):
+        for s in df.itertuples():
+            same = "yes" if s.same_as_base else ("placement only" if _structure(s.balanced_id) == _structure(nums["recommended_id"]) else "no")
+            rows.append([SCENARIO_NAMES.get(s.scenario, s.scenario), f"`{s.balanced_id}`", same, f"{s.base_rec_relief_pct:.0%} / {s.base_rec_implied_coc:.1%}"])
+    out["stress"] = (["Scenario", "Balanced choice", "Same contract", "Recommended: relief / CoC"], rows, [30, 34, 14, 18], {3})
+
+    rows = [[f"{e.name}{' (holdout)' if e.period == 'holdout' else ''}", str(e.year), f"{e.loss_nominal:,.0f}", f"{e.loss_asif:,.0f}"]
+            for e in top.head(6).itertuples()]
+    out["events"] = (["Event", "Year", "Nominal (USD m)", "As-if 2025 (USD m)"], rows, [30, 8, 14, 14], {1, 2, 3})
+
+    out["ep"] = (["Return period"] + [str(x) for x in ep["return_period"]],
+                 [["OEP (USD bn)"] + [f"{x / 1e3:.1f}" for x in ep["oep"]], ["AEP (USD bn)"] + [f"{x / 1e3:.1f}" for x in ep["aep"]]],
+                 [14] + [7] * len(ep), set(range(1, len(ep) + 1)))
+
+    d = lp[(lp["q"] == 0) & (lp["c"] == 1.0) & (lp["n_reinst"] == 1)].sort_values(["attach", "exhaust"])
+    rows = [[f"1-in-{l.attach_rp} to 1-in-{l.exhaust_rp}", f"{l.attach:,.0f}–{l.exhaust:,.0f}", f"{l.ap:.1%}", str(l.years_hit),
+             f"{l.burning_cost:,.0f}", f"{l.el:,.0f}", f"{l.premium:,.0f}", f"{l.rol:.1%}", f"{l.multiple:.1f}×"] for l in d.itertuples()]
+    out["pricing"] = (["Layer", "USD m", "AP", "Years hit", "Burning cost", "Modelled EL", "Premium", "ROL", "Multiple"],
+                      rows, [18, 16, 7, 7, 10, 10, 9, 7, 8], {1, 2, 3, 4, 5, 6, 7, 8})
+    return out
+
+
+def tables(nums: dict) -> dict:
+    """{{tbl_*}} Markdown tables for the memo and {{html_*}} tables for the web page."""
+    out = {}
+    for name, (header, rows, widths, numeric) in table_data(nums).items():
+        out[f"tbl_{name}"] = md_table(header, rows, widths)
+        out[f"html_{name}"] = html_table(header, rows, numeric)
+    return out
 
 
 def fill(template: str, nums: dict) -> str:
@@ -283,8 +310,25 @@ def run() -> None:
     figs.mkdir(exist_ok=True)
     for f in ("hero_1_ep_curves.png", "hero_2_gross_net.png", "hero_3_frontier.png"):
         shutil.copy(FIGURES_DIR / f, figs / f)
+    build_site(allvals)
     if shutil.which("quarto"):
         res = subprocess.run(["quarto", "render", "memo.qmd"], cwd=REPORTS_DIR, capture_output=True, text=True)
         if res.returncode != 0:
             raise RuntimeError(res.stderr[-2000:])
-    print(f"cv_numbers.json ({len(nums)} keys), README.md and reports/memo.pdf written", flush=True)
+    shutil.copy(REPORTS_DIR / "memo.pdf", SITE_DIR / "memo.pdf")
+    print(f"cv_numbers.json ({len(nums)} keys), README.md, reports/memo.pdf and site/ written", flush=True)
+
+
+SITE_DIR = ROOT / "site"
+SITE_CHARTS = ["hero_1_ep_curves.png", "hero_2_gross_net.png", "hero_3_frontier.png", "m1_tiv_by_state.png",
+               "m3_severity_qq_survival.png", "m6_rol_vs_ap.png", "m10_rol_vs_ap_benchmark.png"]
+
+
+def build_site(vals: dict) -> None:
+    """Static project page for GitHub Pages (site/), filled from the same numbers as README and memo."""
+    charts = SITE_DIR / "assets" / "charts"
+    charts.mkdir(parents=True, exist_ok=True)
+    for f in SITE_CHARTS:
+        shutil.copy(FIGURES_DIR / f, charts / f)
+    shutil.copy(ROOT / "excel" / "reinsurance_checks.xlsx", SITE_DIR / "assets" / "reinsurance_checks.xlsx")
+    (SITE_DIR / "index.html").write_text(fill((TEMPLATES / "site.html.tpl").read_text(), vals))

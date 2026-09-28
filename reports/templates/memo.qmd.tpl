@@ -70,7 +70,7 @@ The Balanced rule stops before the first step whose marginal cost exceeds the hu
 
 **Convergence.** The recommended programme's capital relief moves by {{conv_rec_diff:.2%}} at {{conv_years:,}} years.
 
-**Temporal holdout.** Refitted on {{fit0}}–{{fit1}}, the model expected {{ho_count_mean:.1f}} events in {{test0}}–{{test1}}; {{ho_count_obs}} occurred (percentile {{ho_count_pct:.0%}}). Hurricane Ian was a 1-in-{{ho_ian_rp:.0f}} event under that model. The five-year window can reveal a model that is badly off, not confirm a 1-in-200 tail.
+**Temporal holdout.** Refitted on {{fit0}}–{{fit1}}, the model expected {{ho_count_mean:.1f}} events in {{test0}}–{{test1}}; {{ho_count_obs}} occurred (percentile {{ho_count_pct:.0%}}). {{ho_largest_name}} was a 1-in-{{ho_ian_rp:.0f}} event under that model. The five-year window can reveal a model that is badly off, not confirm a 1-in-200 tail.
 
 **Largest event removed.** Without {{eo_event}}, gross EC falls to USD {{eo_gross_ec:,.0f}}m (−{{eo_ec_drop:.0%}}) and the Balanced choice becomes {{eo_balanced_desc}}; the recommended contract still releases {{eo_rec_relief_pct:.0%}} of the smaller capital at {{eo_rec_coc:.1%}}.
 

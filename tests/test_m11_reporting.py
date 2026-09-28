@@ -21,10 +21,11 @@ FORBIDDEN = ["optimal programme", "validated catastrophe model", "vendor-grade",
 DISCLAIMER = "Reinsurance prices are indicative technical premiums, not market quotes. Economic capital is a 99.5% one-year proxy, not a Solvency II SCR."
 
 
-@pytest.mark.parametrize("name", ["README.md.tpl", "memo.qmd.tpl"])
+@pytest.mark.parametrize("name", ["README.md.tpl", "memo.qmd.tpl", "site.html.tpl"])
 def test_no_hand_typed_numbers_in_templates(name):
     t = (TPL / name).read_text()
     t = re.sub(r"\{\{[^}]*\}\}", "", t)
+    t = re.sub(r'(src|href|charset|content)="[^"]*"', "", t)   # file names, links and HTML metadata are not results
     stray = set(re.findall(r"\d[\d,.]*", t)) - ALLOWED
     assert not stray, f"numbers typed by hand in {name}: {sorted(stray)}"
 
@@ -35,7 +36,7 @@ def test_cv_numbers_has_required_keys():
         assert k in nums, k
 
 
-@pytest.mark.parametrize("path", ["README.md", "reports/memo.qmd"])
+@pytest.mark.parametrize("path", ["README.md", "reports/memo.qmd", "site/index.html"])
 def test_rendered_documents(path):
     t = (ROOT / path).read_text()
     assert "{{" not in t and "}}" not in t
