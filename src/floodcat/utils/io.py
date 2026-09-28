@@ -138,8 +138,8 @@ def load_config(name: str) -> dict:
 def git_hash() -> str:
     """Short git hash of HEAD, with '-dirty' if the tree has uncommitted changes (SPEC §4.3)."""
     try:
-        h = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True).strip()
-        dirty = subprocess.call(["git", "diff", "--quiet", "HEAD", "--", "src", "config"], cwd=ROOT)
+        h = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True, stderr=subprocess.DEVNULL).strip()
+        dirty = subprocess.call(["git", "diff", "--quiet", "HEAD", "--", "src", "config"], cwd=ROOT, stderr=subprocess.DEVNULL)
         return h + ("-dirty" if dirty else "")
     except (subprocess.CalledProcessError, FileNotFoundError):
         return "unknown"

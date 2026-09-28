@@ -26,3 +26,6 @@ data/processed/*
 
 # Excel lock files
 ~$*.xlsx
+reports/_figures/
+reports/memo_files/
+reports/.quarto/

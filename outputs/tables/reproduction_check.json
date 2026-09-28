@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-28",
+  "method": "tracked + untracked-not-ignored files copied to an empty directory, frozen data/raw parquet files added, fresh uv environment, `make all`",
+  "n_keys": 153,
+  "match": true,
+  "differences": []
+}
