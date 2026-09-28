@@ -1,0 +1,42 @@
+{
+  "fema_rol": {
+    "2019": 0.1404833836858006,
+    "2023": 0.17950248756218906,
+    "2024": 0.19548022598870055,
+    "2025": 0.18460458463308685
+  },
+  "fema_limit_usd_m": {
+    "2019": 1324.0,
+    "2023": 502.5,
+    "2024": 619.5,
+    "2025": 757.836
+  },
+  "cat_bond_multiple": {
+    "2024-1 A": 2.7944111776447107,
+    "2024-1 B": 2.7424483306836245,
+    "2023-1 A": 3.0373831775700935
+  },
+  "model_band": {
+    "ap_range": [
+      0.04,
+      0.09
+    ],
+    "n_layers": 36,
+    "rol_min": 0.0719893823247297,
+    "rol_max": 0.0903347203131318,
+    "rol_median": 0.0777013200283524,
+    "multiple_min": 2.8401343469473392,
+    "multiple_max": 4.562675929983293,
+    "multiple_median": 3.743684331463121
+  },
+  "recommended_layers": [
+    {
+      "layer_id": "QS20_A5_E200_C80_R0",
+      "ap": 0.20032,
+      "rol": 0.0842385606334399,
+      "multiple": 3.1000406138473378,
+      "placement": 0.8
+    }
+  ],
+  "bonus_floodsmart_apples_to_apples": "not run: the pipeline has no named-storm filter in config, so it would need code changes (SPEC \u00a79 M10)"
+}

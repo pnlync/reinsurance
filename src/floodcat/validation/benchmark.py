@@ -74,23 +74,31 @@ def run() -> None:
 
 
 def plot(lp: pd.DataFrame, fema: pd.DataFrame, cb: pd.DataFrame) -> None:
+    """Left: ROL vs AP (layer width differs, so only indicative). Right: multiple = price / EL vs AP (like for like)."""
     d = lp[(lp["q"] == 0) & (lp["n_reinst"] == 1) & (lp["c"] == 1.0)]
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.scatter(d["ap"] * 100, d["rol"] * 100, s=25, color="#2f5d8a", label="Model layers: technical ROL (QS 0%, c 100%, 1 reinst.)")
-    ax.scatter(cb["ap"] * 100, cb["spread"] * 100, s=60, marker="D", color="#c0573e", label="FloodSmart Re: spread (named storm, national)")
-    for _, r in cb.iterrows():
-        ax.annotate(f"{r.series} {r['class']}", (r.ap * 100, r.spread * 100), fontsize=7, xytext=(4, 4), textcoords="offset points")
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.8))
+    ax = axes[0]
+    ax.scatter(d["ap"] * 100, d["rol"] * 100, s=25, color="#2f5d8a", label="Model layers: technical ROL")
+    ax.scatter(cb["ap"] * 100, cb["spread"] * 100, s=60, marker="D", color="#c0573e", label="FloodSmart Re: spread")
     for r in fema[fema["year"] >= 2023].itertuples():
         ax.hlines(r.rol * 100, AP_BAND[0] * 100, AP_BAND[1] * 100, colors="#3a8a5f", lw=1.5)
-        ax.annotate(f"FEMA {r.year} ROL", (AP_BAND[1] * 100, r.rol * 100), fontsize=7, xytext=(3, -3), textcoords="offset points", color="#3a8a5f")
-    ax.axvspan(AP_BAND[0] * 100, AP_BAND[1] * 100, color="0.9", zorder=0)
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    for a in (ax.xaxis, ax.yaxis):
-        a.set_major_formatter(matplotlib.ticker.FormatStrFormatter("%g"))
-    ax.set_xlabel("Attachment probability (%, log scale)")
-    ax.set_ylabel("Rate on line / spread (%, log scale)")
-    ax.legend(frameon=False, fontsize=8, loc="upper left")
-    finish(fig, ax, "Technical ROL vs public market benchmarks (order of magnitude only)")
+    ax.annotate("FEMA 2023–25 ROL", (AP_BAND[0] * 100, fema[fema["year"] >= 2023]["rol"].max() * 100), fontsize=7,
+                xytext=(0, 4), textcoords="offset points", color="#3a8a5f")
+    ax.set_ylabel("Rate on line / spread (%)")
+    ax.set_ylim(0, None)
+    ax2 = axes[1]
+    ax2.scatter(d["ap"] * 100, d["multiple"], s=25, color="#2f5d8a", label="Model layers: (P + E[RP]) / EL")
+    ax2.scatter(cb["ap"] * 100, cb["multiple"], s=60, marker="D", color="#c0573e", label="FloodSmart Re: spread / EL")
+    for _, r in cb.iterrows():
+        ax2.annotate(f"{r.series} {r['class']}", (r.ap * 100, r.multiple), fontsize=7, xytext=(4, 4), textcoords="offset points")
+    ax2.set_ylabel("Price multiple of expected loss (×)")
+    ax2.set_ylim(0, None)
+    for a in axes:
+        a.set_xscale("log")
+        a.xaxis.set_major_formatter(matplotlib.ticker.FormatStrFormatter("%g"))
+        a.set_xlabel("Attachment probability (%, log scale)")
+        a.axvspan(AP_BAND[0] * 100, AP_BAND[1] * 100, color="0.92", zorder=0)
+        a.legend(frameon=False, fontsize=8, loc="upper left")
+    finish(fig, axes[0], "Technical pricing vs public market benchmarks (order of magnitude only)")
     fig.savefig(FIGURES_DIR / "m10_rol_vs_ap_benchmark.png", dpi=150)
     plt.close(fig)
