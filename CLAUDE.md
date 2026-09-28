@@ -15,6 +15,9 @@ Flood catastrophe reinsurance & capital optimisation (portfolio project). **SPEC
 - `private_notes/` holds the owner's planning guides: `claude_guide.md` (the Chinese "Final Guide" that SPEC calls the companion guide) and `chatgpt_prototype.txt` (an earlier ChatGPT draft, superseded by SPEC where they differ, e.g. K_R uses TVaR not VaR). It is gitignored — never commit, quote into public files, or publish it.
 - Where the guide and SPEC differ, SPEC wins (e.g. the guide's §2.4 illustrative TVaR = 70 / P = 12.86 is not a golden value; SPEC §11 is).
 
+## Decision authority
+The owner has given the agent full discretion over this project (28 Sep 2026): it replaces SPEC's "stop and ask" and "wait for OK / continue" gates. Build the modules in order without waiting; make design calls, record each in `reports/decisions.md` (and in SPEC.md with a version bump if it changes the contract), and tell the owner what was decided and why. Still write the Chinese module explanation and teach-back questions (in `reports/modules/M<n>.md`) so the owner can study them. Still never alter the golden values in SPEC §11.
+
 ## Environment
 - Python 3.12 via uv (`uv sync`, `uv run pytest`). SPEC says ≥ 3.11, but uv's 3.11 build is killed by macOS on this machine.
 - GitHub: git@github.com:pnlync/reinsurance.git (SPEC §10 calls the repo `flood-cat-reinsurance`; the package is `floodcat`).
