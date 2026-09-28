@@ -34,9 +34,15 @@ Full write-up: [`reports/memo.pdf`](reports/memo.pdf). Data checks, event catalo
 
 ## Reproduce
 
+1. Download FEMA's two v3 bulk files in a browser (fema.gov refuses scripted downloads) and save them unchanged in `data/raw/`:
+   [`NfipClaimsV3.parquet`](https://www.fema.gov/about/reports-and-data/openfema/v3/NfipClaimsV3.parquet) and
+   [`NfipPoliciesV3.parquet`](https://www.fema.gov/about/reports-and-data/openfema/v3/NfipPoliciesV3.parquet).
+   `make data` checks them against the row counts and SHA-256 in `data/raw/MANIFEST`; a later FEMA refresh will not match.
+2. Build and test:
+
 ```bash
 uv sync
-make all     # first run downloads and freezes the OpenFEMA data through the API (about an hour), then rebuilds every output
+make all     # about 2 minutes
 make test
 ```
 

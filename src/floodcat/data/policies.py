@@ -26,13 +26,13 @@ def _typed_policies_sql(states: list[str]) -> str:
     st = ", ".join(f"'{s}'" for s in states)
     return f"""
         SELECT *,
-               CAST(substr(policyEffectiveDate, 1, 10) AS DATE)  AS eff,
-               CAST(substr(policyTerminationDate, 1, 10) AS DATE) AS term,
-               CAST(substr(coalesce(nullif(endorsementEffectiveDate, ''), policyEffectiveDate), 1, 10) AS DATE) AS endo,
-               coalesce(try_cast(totalBuildingInsuranceCoverage AS DOUBLE), 0)
-                 + coalesce(try_cast(totalContentsInsuranceCoverage AS DOUBLE), 0)      AS tiv,
-               coalesce(try_cast(totalInsurancePremiumOfThePolicy AS DOUBLE), 0)       AS premium,
-               coalesce(try_cast(policyCount AS DOUBLE), 0)                            AS pcount
+               policyEffectiveDate                                            AS eff,
+               policyTerminationDate                                          AS term,
+               coalesce(endorsementEffectiveDate, policyEffectiveDate)        AS endo,
+               coalesce(CAST(totalBuildingInsuranceCoverage AS DOUBLE), 0)
+                 + coalesce(CAST(totalContentsInsuranceCoverage AS DOUBLE), 0) AS tiv,
+               coalesce(CAST(totalInsurancePremiumOfThePolicy AS DOUBLE), 0)  AS premium,
+               coalesce(CAST(policyCount AS DOUBLE), 0)                       AS pcount
         FROM {{policies}}
         WHERE propertyState IN ({st})
     """
@@ -73,12 +73,11 @@ def inforce_exposure(states: list[str], years: tuple[int, int]) -> pd.DataFrame:
 def national_inforce_2025() -> dict:
     """All-state policies and TIV in force at 31 Dec 2025 (FEMA rule on raw records) for the CRS check."""
     r = load.query("""
-        SELECT count(*) AS records, sum(coalesce(try_cast(policyCount AS DOUBLE), 0)) AS policies,
-               sum(coalesce(try_cast(totalBuildingInsuranceCoverage AS DOUBLE), 0)
-                   + coalesce(try_cast(totalContentsInsuranceCoverage AS DOUBLE), 0)) AS tiv
-        FROM {national}
-        WHERE CAST(substr(policyEffectiveDate, 1, 10) AS DATE) <= DATE '2025-12-31'
-          AND CAST(substr(policyTerminationDate, 1, 10) AS DATE) > DATE '2025-12-31'
+        SELECT count(*) AS records, sum(coalesce(CAST(policyCount AS DOUBLE), 0)) AS policies,
+               sum(coalesce(CAST(totalBuildingInsuranceCoverage AS DOUBLE), 0)
+                   + coalesce(CAST(totalContentsInsuranceCoverage AS DOUBLE), 0)) AS tiv
+        FROM {policies}
+        WHERE policyEffectiveDate <= DATE '2025-12-31' AND policyTerminationDate > DATE '2025-12-31'
     """).iloc[0]
     return {k: float(v) for k, v in r.items()}
 

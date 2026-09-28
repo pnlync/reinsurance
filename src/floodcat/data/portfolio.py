@@ -87,10 +87,10 @@ def run() -> None:
 
 
 def run_all() -> None:
-    """`make data`: download and freeze the raw files if missing, then build the M1 outputs."""
+    """`make data`: check the frozen raw files against MANIFEST, then build the M1 outputs."""
     from floodcat.data import load
 
-    load.download_all()
+    load.verify()
     run()
 
 

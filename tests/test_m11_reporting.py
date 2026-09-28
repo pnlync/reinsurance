@@ -15,6 +15,7 @@ ALLOWED = {
     "200", "99.5", "90",                          # the 1-in-200 / 99.5% capital definition, 90% bootstrap intervals (SPEC §4.3, §9 M9)
     "2025", "2009",                               # target exposure year; first year of policy data (pre-2009 exclusion)
     "1.8", "2.0", "9.5", "62", "68",              # page layout: margins, font size, figure widths
+    "256",                                        # "SHA-256" (hash algorithm name)
 }
 FORBIDDEN = ["optimal programme", "validated catastrophe model", "vendor-grade", "market quote"]
 DISCLAIMER = "Reinsurance prices are indicative technical premiums, not market quotes. Economic capital is a 99.5% one-year proxy, not a Solvency II SCR."

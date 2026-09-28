@@ -1,12 +1,10 @@
 # SPEC §4.1 — dataset versions and field mapping, from the OpenFEMA field dictionary
 # (https://www.fema.gov/api/open/v1/OpenFemaDataSetFields?$filter=openFemaDataSet eq '<name>' and datasetVersion eq 3).
-# v3 is complete (claims 2.73m rows, policies 74.7m rows at 28 Sep 2026), so v3 is used. v2 names are identical for every field below.
+# v3 is complete (claims 2,725,989 rows, policies 74,739,461 rows in the bulk files downloaded 28 Sep 2026), so v3 is used.
+# v2 names are identical for every field below.
 claims:
   dataset: NfipClaims
   version: 3
-  pull: [id, state, dateOfLoss, yearOfLoss, floodEvent, eventDesignationNumber,
-         amountPaidOnBuildingClaim, amountPaidOnContentsClaim, amountPaidOnIncreasedCostOfComplianceClaim,
-         totalBuildingInsuranceCoverage, totalContentsInsuranceCoverage, policyCount]
   fields:            # SPEC name -> v3 name
     id: id
     date_of_loss: dateOfLoss
@@ -21,11 +19,6 @@ claims:
 policies:
   dataset: NfipPolicies
   version: 3
-  pull: [id, propertyState, policyEffectiveDate, policyTerminationDate, cancellationDateOfFloodPolicy,
-         endorsementEffectiveDate, policyTermIndicator, totalBuildingInsuranceCoverage,
-         totalContentsInsuranceCoverage, totalInsurancePremiumOfThePolicy, policyCount,
-         originalNBDate, originalConstructionDate, reportedZipCode, latitude, longitude,
-         occupancyType, condominiumCoverageTypeCode, rolloverTransferCode]
   fields:
     state: propertyState
     effective_date: policyEffectiveDate
@@ -35,8 +28,3 @@ policies:
     premium: totalInsurancePremiumOfThePolicy
     policy_count: policyCount
     term_identifier: null   # v3 has no policy/term number; see reports/data_checks.md for the de-duplication rule
-national_check:     # all states, in force at 31 Dec 2025 (CRS R44593 order-of-magnitude check)
-  dataset: NfipPolicies
-  version: 3
-  pull: [id, propertyState, policyEffectiveDate, policyTerminationDate,
-         totalBuildingInsuranceCoverage, totalContentsInsuranceCoverage, policyCount]
