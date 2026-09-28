@@ -177,7 +177,7 @@ def run_frontier() -> None:
         "rule": f"Balanced at cedent hurdle h = {h0:.0%}",
         "choices": {"budget_first": ch["budget_first"], "protection_first": ch["protection_first"],
                     "balanced": {f"{h:.2f}": pid for h, pid in ch["balanced"].items()}},
-        "choice_summaries": {pid: summary(pid) for pid in {ch["budget_first"], ch["protection_first"], *ch["balanced"].values()} if pid},
+        "choice_summaries": {pid: summary(pid) for pid in sorted({ch["budget_first"], ch["protection_first"], *ch["balanced"].values()} - {None})},
         "tvar99_frontier": {"budget_first": ch_tv["budget_first"], "protection_first": ch_tv["protection_first"],
                             "balanced": {f"{h:.2f}": pid for h, pid in ch_tv["balanced"].items()}, "n_frontier": int(len(ch_tv["frontier"]))},
         "n_programmes": int(len(m)),
