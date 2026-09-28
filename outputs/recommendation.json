@@ -1,0 +1,215 @@
+{
+  "recommended": {
+    "programme_id": "QS20_A5_E200_T0_C80_R0",
+    "q": 0.2,
+    "layers": [
+      {
+        "layer_id": "QS20_A5_E200_C80_R0",
+        "attach": 990.0,
+        "exhaust": 21310.0,
+        "limit": 20320.0,
+        "attach_rp": 5,
+        "exhaust_rp": 200,
+        "ap": 0.20032,
+        "ep": 0.00622,
+        "placement": 0.8,
+        "n_reinst": 0,
+        "premium": 1369.3820416571998,
+        "rol": 0.0842385606334399,
+        "el": 441.73035525418936,
+        "multiple": 3.1000406138473378
+      }
+    ],
+    "premium": 1966.1467806932164,
+    "exp_reinst_premium": 0.0,
+    "exp_recovery": 751.5071319686056,
+    "net_cost": 1214.6396487246109,
+    "gross_ec": 25324.62602589614,
+    "ec_net": 4630.566734044449,
+    "relief": 20694.059291851692,
+    "relief_pct": 0.817151624300024,
+    "implied_coc": 0.0586950888462408,
+    "net_mean": 2763.5235322966923,
+    "net_var_995": 7394.090266341142,
+    "net_tvar_99": 7858.649284475114
+  },
+  "rule": "Balanced at cedent hurdle h = 10%",
+  "choices": {
+    "budget_first": "QS0_A50_E100_T0_C80_R0",
+    "protection_first": "QS20_A5_E200_T0_C100_R0",
+    "balanced": {
+      "0.08": "QS20_A5_E200_T0_C80_R0",
+      "0.10": "QS20_A5_E200_T0_C80_R0",
+      "0.12": "QS20_A5_E200_T0_C100_R0"
+    }
+  },
+  "choice_summaries": {
+    "QS20_A5_E200_T0_C100_R0": {
+      "programme_id": "QS20_A5_E200_T0_C100_R0",
+      "q": 0.2,
+      "layers": [
+        {
+          "layer_id": "QS20_A5_E200_C100_R0",
+          "attach": 990.0,
+          "exhaust": 21310.0,
+          "limit": 20320.0,
+          "attach_rp": 5,
+          "exhaust_rp": 200,
+          "ap": 0.20032,
+          "ep": 0.00622,
+          "placement": 1.0,
+          "n_reinst": 0,
+          "premium": 1711.7275520715,
+          "rol": 0.0842385606334399,
+          "el": 552.1629440677367,
+          "multiple": 3.100040613847338
+        }
+      ],
+      "premium": 2308.492291107517,
+      "exp_reinst_premium": 0.0,
+      "exp_recovery": 861.939720782153,
+      "net_cost": 1446.5525703253638,
+      "gross_ec": 25324.62602589614,
+      "ec_net": 2338.0800474929465,
+      "relief": 22986.545978403195,
+      "relief_pct": 0.9076756337842028,
+      "implied_coc": 0.0629304016220818,
+      "net_mean": 2995.436453897445,
+      "net_var_995": 5333.516501390392,
+      "net_tvar_99": 5630.495566333501
+    },
+    "QS0_A50_E100_T0_C80_R0": {
+      "programme_id": "QS0_A50_E100_T0_C80_R0",
+      "q": 0.0,
+      "layers": [
+        {
+          "layer_id": "QS0_A50_E100_C80_R0",
+          "attach": 10000.0,
+          "exhaust": 18220.0,
+          "limit": 8220.0,
+          "attach_rp": 50,
+          "exhaust_rp": 100,
+          "ap": 0.02,
+          "ep": 0.01,
+          "placement": 0.8,
+          "n_reinst": 0,
+          "premium": 462.9654805085996,
+          "rol": 0.0704022932646897,
+          "el": 92.49361311341012,
+          "multiple": 5.005377830152867
+        }
+      ],
+      "premium": 462.9654805085996,
+      "exp_reinst_premium": 0.0,
+      "exp_recovery": 92.49361311341012,
+      "net_cost": 370.4718673951894,
+      "gross_ec": 25324.62602589614,
+      "ec_net": 18851.670487492425,
+      "relief": 6472.955538403716,
+      "relief_pct": 0.2555992547248153,
+      "implied_coc": 0.0572338038160773,
+      "net_mean": 1919.3557509672712,
+      "net_var_995": 20771.026238459697,
+      "net_tvar_99": 20442.400167237625
+    },
+    "QS20_A5_E200_T0_C80_R0": {
+      "programme_id": "QS20_A5_E200_T0_C80_R0",
+      "q": 0.2,
+      "layers": [
+        {
+          "layer_id": "QS20_A5_E200_C80_R0",
+          "attach": 990.0,
+          "exhaust": 21310.0,
+          "limit": 20320.0,
+          "attach_rp": 5,
+          "exhaust_rp": 200,
+          "ap": 0.20032,
+          "ep": 0.00622,
+          "placement": 0.8,
+          "n_reinst": 0,
+          "premium": 1369.3820416571998,
+          "rol": 0.0842385606334399,
+          "el": 441.73035525418936,
+          "multiple": 3.1000406138473378
+        }
+      ],
+      "premium": 1966.1467806932164,
+      "exp_reinst_premium": 0.0,
+      "exp_recovery": 751.5071319686056,
+      "net_cost": 1214.6396487246109,
+      "gross_ec": 25324.62602589614,
+      "ec_net": 4630.566734044449,
+      "relief": 20694.059291851692,
+      "relief_pct": 0.817151624300024,
+      "implied_coc": 0.0586950888462408,
+      "net_mean": 2763.5235322966923,
+      "net_var_995": 7394.090266341142,
+      "net_tvar_99": 7858.649284475114
+    }
+  },
+  "tvar99_frontier": {
+    "budget_first": "QS10_A20_E50_T0_C100_R0",
+    "protection_first": "QS20_A5_E200_T0_C100_R0",
+    "balanced": {
+      "0.08": "QS20_A5_E100_T0_C100_R0",
+      "0.10": "QS20_A5_E200_T0_C80_R0",
+      "0.12": "QS20_A5_E200_T0_C100_R0"
+    },
+    "n_frontier": 71
+  },
+  "n_programmes": 255,
+  "n_frontier": 79,
+  "n_hull": 7,
+  "hull": [
+    {
+      "programme_id": "QS0_XS0",
+      "net_cost": 0.0,
+      "ec_net": 25324.62602589614,
+      "relief_pct": 0.0,
+      "marginal_coc": NaN
+    },
+    {
+      "programme_id": "QS20_XS0",
+      "net_cost": 286.9879623216005,
+      "ec_net": 20259.700820716913,
+      "relief_pct": 0.2,
+      "marginal_coc": 0.056661836196146766
+    },
+    {
+      "programme_id": "QS20_A50_E100_T0_C80_R0",
+      "net_cost": 583.0961144283252,
+      "ec_net": 15086.088237424256,
+      "relief_pct": 0.4042917663622075,
+      "marginal_coc": 0.057234311100710936
+    },
+    {
+      "programme_id": "QS20_A50_E100_T0_C100_R0",
+      "net_cost": 657.1231524550066,
+      "ec_net": 13799.315417034932,
+      "relief_pct": 0.4551028945926308,
+      "marginal_coc": 0.05752922105106622
+    },
+    {
+      "programme_id": "QS20_A20_E100_T0_C100_R0",
+      "net_cost": 905.2017880010958,
+      "ec_net": 9596.915359670147,
+      "relief_pct": 0.6210441429675346,
+      "marginal_coc": 0.0590326080715059
+    },
+    {
+      "programme_id": "QS20_A5_E200_T0_C80_R0",
+      "net_cost": 1214.6396487246109,
+      "ec_net": 4630.566734044449,
+      "relief_pct": 0.817151624300024,
+      "marginal_coc": 0.06230691480796513
+    },
+    {
+      "programme_id": "QS20_A5_E200_T0_C100_R0",
+      "net_cost": 1446.5525703253638,
+      "ec_net": 2338.0800474929465,
+      "relief_pct": 0.9076756337842028,
+      "marginal_coc": 0.10116216724887962
+    }
+  ],
+  "git_hash": "0dd00ad-dirty"
+}

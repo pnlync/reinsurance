@@ -231,7 +231,9 @@ def hero_3(m: pd.DataFrame, ch: dict, rec_id: str) -> None:
             continue
         x, y = mi.loc[pid, "net_cost"], mi.loc[pid, "ec_net"] / 1e3
         ax.scatter([x], [y], s=90, facecolor="none", edgecolor="#c0392b", lw=2, zorder=5)
-        ax.annotate(f"{lab}\n{pid}", (x, y), fontsize=8, xytext=(8, 6), textcoords="offset points")
+        right = x > 0.75 * m["net_cost"].max()
+        ax.annotate(f"{lab}\n{pid}", (x, y), fontsize=8, xytext=(-12, 14) if right else (10, 8), textcoords="offset points",
+                    ha="right" if right else "left")
     ax.set_xlabel("Net cost of reinsurance (USD m per year)")
     ax.set_ylabel("99.5% one-year economic capital proxy, net (USD bn)")
     ax.legend(frameon=False, loc="upper right", fontsize=8)
