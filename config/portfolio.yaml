@@ -1,0 +1,17 @@
+# SPEC §4.2 — portfolio scope, dates and periods
+states: [FL, TX, LA, MS, AL]
+target_year: 2025                 # T: exposure year every loss is restated to
+calibration:
+  start: 2009                     # M1 may move this to 2010 (SPEC §6.1)
+  end: 2023
+holdout:
+  years: [2024, 2025]             # discussion only, never used in calibration
+  immature: [2024]
+backtest:
+  fit: [2009, 2018]
+  test: [2019, 2023]
+history_years: [2009, 2025]       # years built in M1/M2
+# National order-of-magnitude check (CRS R44593, 31 Dec 2025)
+crs_check:
+  min_policies: 4.5e6
+  min_coverage_usd: 1.3e12

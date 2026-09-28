@@ -7,7 +7,7 @@ Flood catastrophe reinsurance & capital optimisation (portfolio project). **SPEC
 - Tests first (`tests/test_m<n>_*.py`); report every test PASS/FAIL with numbers. One commit per module: `M<n>: <module name>`.
 - Never edit the golden values in SPEC §11 or the tests that check them. A failing golden test means the implementation is wrong; report the diagnosis.
 - All parameters live in `config/*.yaml`; no hard-coded numbers in `src/` except mathematical constants. Only `floodcat.data.load` may read `data/raw/`.
-- Do not add any feature that is not in SPEC; if something seems necessary, ask first. If SPEC is unclear, contradictory or looks wrong: stop and ask. Don't guess. (No blanket decision authority has been given for this project.)
+- Do not add any feature that is not in SPEC. Where SPEC is unclear or looks wrong, make the call under the decision authority below.
 - Every public number comes from `outputs/`; never type numbers by hand into README, memo or CV. Never write "optimal programme", "validated catastrophe model", "vendor-grade", "Solvency II SCR" or "market quote".
 
 ## Owner context

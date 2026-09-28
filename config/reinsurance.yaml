@@ -1,0 +1,22 @@
+# SPEC §5.3 — programme grid and pricing. Money in USD m.
+quota_share: [0.0, 0.10, 0.20]
+pure_quota_share: [0.10, 0.20]
+attachment_rp: [5, 10, 20, 50]
+exhaustion_rp: [50, 100, 200, 250]
+tower_split_rp: [50, 100]         # used only where strictly between attachment and exhaustion
+placement: [0.80, 1.00]
+reinstatements: [0, 1]
+reinstatement_rate: 1.00
+rounding: 10                      # attachments / exhaustion rounded to nearest USD 10m
+pricing:
+  coc_r: 0.10
+  diversification_d: 0.5
+  xol_expense: 0.10
+  qs_expense: 0.03
+  tvar_level: 0.995
+decision:
+  hurdle: 0.10
+  hurdle_sensitivity: [0.08, 0.10, 0.12]
+  budget_min_relief: 0.25
+capital:
+  var_level: 0.995

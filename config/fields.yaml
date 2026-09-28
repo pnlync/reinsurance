@@ -1,0 +1,9 @@
+# SPEC §4.1 — dataset versions and field mapping. Filled in M1 from the OpenFEMA field dictionary.
+claims:
+  dataset: null
+  version: null
+  fields: {}
+policies:
+  dataset: null
+  version: null
+  fields: {}

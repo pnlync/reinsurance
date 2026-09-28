@@ -1,0 +1,11 @@
+# SPEC §5.4 — each scenario re-evaluates the fixed base contract grid
+scenarios:
+  freq_125:   {frequency_scale: 1.25}
+  sev_115:    {severity_scale: 1.15}
+  tail_heavy: {tail: gpd_above_median, xi_shift: 0.1}
+  coc_08:     {coc_r: 0.08}
+  coc_12:     {coc_r: 0.12}
+  d_03:       {diversification_d: 0.3}
+  d_07:       {diversification_d: 0.7}
+  h_08:       {hurdle: 0.08}
+  h_12:       {hurdle: 0.12}

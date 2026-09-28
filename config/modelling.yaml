@@ -1,0 +1,15 @@
+# SPEC §5.1 — loss-model rules. Money in USD m (2025 as-if basis).
+event_threshold_u0: 100           # base; user/agent confirms in M2
+event_threshold_sensitivity: 250
+frequency:
+  candidates: [poisson, negbin]
+  lr_critical: 2.71               # choose NB only if 2(l_NB - l_Pois) > 2.71
+severity:
+  candidates: [lognormal, loglogistic, burr12]
+  top_n_check: 5                  # fitted vs empirical quantiles on the top 5 events
+gpd:
+  min_exceedances: 25
+event_cap_multiple: 3.0           # cap = 3 x largest as-if calibration event
+attritional:
+  base: bootstrap
+  sensitivity: lognormal

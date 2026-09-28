@@ -1,0 +1,11 @@
+# SPEC §5.2
+n_years: 100000
+convergence:
+  n_years: 200000
+  tolerance: 0.02                 # on gross VaR 99.5 and recommended relief
+n_batches: 20
+seed: 20261001
+bootstrap:
+  replicates: 200
+  n_years: 20000
+return_periods: [5, 10, 20, 50, 100, 200, 250]
