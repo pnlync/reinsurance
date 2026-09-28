@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flood Catastrophe Reinsurance</title>
+  <meta name="description" content="What reinsurance a Gulf Coast flood portfolio should buy, what it costs and how much catastrophe capital it removes, built from public NFIP data.">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="stylesheet" href="./styles/site.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top"><span class="brand-dot"></span>Flood Cat <span class="long">Reinsurance</span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#model">Cat model</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#decision">Decision</a>
+      <a href="#validation">Validation</a>
+      <a href="#benchmark">Benchmark</a>
+      <a href="#limitations">Limitations</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="title">
+    <p class="eyebrow">Reinsurance &amp; catastrophe project · Tom Zhang · Python, Excel</p>
+    <h1 id="title">Flood Catastrophe Reinsurance &amp; Capital Optimisation</h1>
+    <p class="question">For a flood insurer exposed to catastrophe accumulation, what reinsurance programme should it buy, how much should it pay, and how much tail risk and economic capital does that programme remove?</p>
+    <p class="lede">A stylised Gulf Coast flood portfolio (FL, TX, LA, MS, AL) built from public NFIP claims and policy data. Historical flood events from 2009–2023 are restated to 2025 exposure and turned into a stochastic loss model of 100,000 simulated years; 255 quota-share and catastrophe excess-of-loss programmes are priced on a technical basis and compared on net cost against the 99.5% one-year economic capital proxy they release.</p>
+    <div class="answer">
+      <p><strong>Answer.</strong> Buy 20% quota share + 1-in-5 to 1-in-200 Cat XoL, 80% placed, no reinstatement. It releases <strong>81.7%</strong> of the 99.5% one-year economic capital proxy (USD 20,694m) for a net cost of <strong>USD 1,215m a year</strong>: an implied cost of capital of <strong>5.9%</strong>, below the 10% hurdle.</p>
+      <p>The case rests on the reinsurer's diversification: with none, the implied cost rises to 11.5% and the same rule picks no reinsurance.</p>
+    </div>
+    <div class="links">
+      <a class="btn primary" href="./memo.pdf" target="_blank" rel="noopener">Actuarial memo (PDF)</a>
+      <a class="btn" href="https://github.com/pnlync/reinsurance">GitHub repository</a>
+      <a class="btn" href="./assets/reinsurance_checks.xlsx">Excel treaty check</a>
+      <a class="btn" href="https://pnlync.github.io/actuarial/">Portfolio homepage</a>
+    </div>
+    <p class="honesty"><strong>Stylised portfolio, indicative prices.</strong> Real inputs: OpenFEMA NFIP Redacted Claims and Policies (v3), public FEMA reinsurance placements and FloodSmart Re cat bond terms. The portfolio is calibrated to NFIP Gulf-state experience and does not reproduce the NFIP's finances. Prices are indicative technical premiums, not market quotes; economic capital is a 99.5% one-year proxy, not a Solvency&nbsp;II SCR.</p>
+  </section>
+
+  <section id="overview" aria-labelledby="h-overview">
+    <h2 id="h-overview">What the model found</h2>
+    <p class="section-q">Six results, each written by the pipeline to <code>outputs/</code>.</p>
+    <div class="findings">
+      <div class="finding"><div class="num">82%</div><div class="label">Capital released by the recommended programme</div><p>Net economic capital falls from USD 25,325m to USD 4,631m. Premium USD 1,966m, expected recoveries USD 752m.</p></div>
+      <div class="finding"><div class="num">5.9%</div><div class="label">Implied cost of the released capital</div><p>Every programme costs 5.7%–8.5% per unit of capital released, below the 10% hurdle, because the reinsurer charges 10% × 0.5 on its capital plus expenses.</p></div>
+      <div class="finding"><div class="num">11.5%</div><div class="label">Without reinsurer diversification</div><p>At d = 1 reinsurance capital costs more than equity and the Balanced rule picks no reinsurance. Diversification is why reinsurance is worth buying at all.</p></div>
+      <div class="finding"><div class="num">−57%</div><div class="label">Gross capital without Hurricane Harvey</div><p>The 1-in-200 tail rests on a few events: the year bootstrap puts the recommended programme's relief at 53%–82% (90% interval).</p></div>
+      <div class="finding"><div class="num">9 / 9</div><div class="label">Stresses keeping the layer structure</div><p>The exact contract held in 4 of 9 stress scenarios and its layer structure in 9 of 9; the others change only the placement share.</p></div>
+      <div class="finding"><div class="num">2.8–4.6×</div><div class="label">Price multiple of expected loss</div><p>Comparable with FloodSmart Re cat bonds (2.7–3.0×); rates on line sit below FEMA's 18.5% mainly because the model's layers are wider.</p></div>
+    </div>
+    <h3>From claims to a reinsurance decision</h3>
+    <div class="chain"><span>NFIP claims &amp; policies</span><i>→</i><span>Event catalogue</span><i>→</i><span>As-if 2025</span><i>→</i><span>Frequency · severity · attritional</span><i>→</i><span>Year–event simulation</span><i>→</i><span>Treaty engine</span><i>→</i><span>Technical pricing</span><i>→</i><span>Gross vs net capital</span><i>→</i><span>Cost–capital frontier</span></div>
+  </section>
+
+  <section id="portfolio" aria-labelledby="h-port">
+    <h2 id="h-port">Portfolio and events</h2>
+    <p class="section-q">What are we buying reinsurance for, and which historical catastrophes hit it?</p>
+    <p>The 2025 Gulf Coast reference portfolio: 2,892,970 insured units, USD 805bn total insured value (59% in Florida) and USD 2,593m premium. Claims are grouped by FEMA's <code>floodEvent</code> label and each event is restated to 2025 by the ratio of state insured value; events of at least USD 100m form the catalogue (20 in 2009–2023), the rest is attritional loss (mean USD 142m a year).</p>
+    <div class="table-wrap"><table><tr><th>Event</th><th class="n">Year</th><th class="n">Nominal (USD m)</th><th class="n">As-if 2025 (USD m)</th></tr><tr><td>Hurricane Harvey</td><td class="n">2017</td><td class="n">9,056</td><td class="n">8,880</td></tr><tr><td>Hurricane Helene (holdout)</td><td class="n">2024</td><td class="n">6,487</td><td class="n">6,524</td></tr><tr><td>Hurricane Ian</td><td class="n">2022</td><td class="n">4,867</td><td class="n">5,262</td></tr><tr><td>Mid-summer severe storms</td><td class="n">2016</td><td class="n">2,534</td><td class="n">2,226</td></tr><tr><td>Hurricane Milton (holdout)</td><td class="n">2024</td><td class="n">1,211</td><td class="n">1,218</td></tr><tr><td>Hurricane Irma</td><td class="n">2017</td><td class="n">986</td><td class="n">1,039</td></tr></table></div>
+    <figure><img src="./assets/charts/m1_tiv_by_state.png" alt="Written total insured value by state" loading="lazy"><figcaption>Insured value by state is the as-if yardstick: each event is scaled by its state's 2025 insured value relative to the event year.</figcaption></figure>
+  </section>
+
+  <section id="model" aria-labelledby="h-model">
+    <h2 id="h-model">Catastrophe loss model</h2>
+    <p class="section-q">How many catastrophes a year, how large, and what does a 1-in-200 year look like?</p>
+    <p>Annual loss = attritional + sum of event losses. Frequency: Poisson, 1.33 events a year (dispersion index 1.14). Severity: log-logistic fitted with left truncation at the event threshold, chosen by AIC after checking that each of the five largest events is unremarkable under the fit; each event is capped at 3× the largest calibration event. The 1-in-200 event sits at the event cap, so the far tail is an assumption, and is tested below.</p>
+    <figure><img src="./assets/charts/hero_1_ep_curves.png" alt="Modelled OEP and AEP with calibration years" loading="lazy"><figcaption>Occurrence (largest event) and aggregate (annual) exceedance curves. Gross 1-in-200 annual loss USD 26,874m; economic capital proxy USD 25,325m.</figcaption></figure>
+    <div class="table-wrap"><table><tr><th>Return period</th><th class="n">5</th><th class="n">10</th><th class="n">20</th><th class="n">50</th><th class="n">100</th><th class="n">200</th><th class="n">250</th></tr><tr><td>OEP (USD bn)</td><td class="n">1.2</td><td class="n">2.5</td><td class="n">4.6</td><td class="n">10.0</td><td class="n">18.2</td><td class="n">26.6</td><td class="n">26.6</td></tr><tr><td>AEP (USD bn)</td><td class="n">1.8</td><td class="n">3.3</td><td class="n">5.7</td><td class="n">11.4</td><td class="n">19.7</td><td class="n">26.9</td><td class="n">27.1</td></tr></table></div>
+    <figure><img src="./assets/charts/m3_severity_qq_survival.png" alt="Severity QQ plot and conditional survival" loading="lazy"><figcaption>The three candidate fits are within 0.7 AIC points; the largest events sit above the fitted line, as the largest of 20 events often will.</figcaption></figure>
+  </section>
+
+  <section id="pricing" aria-labelledby="h-pricing">
+    <h2 id="h-pricing">Treaties and technical pricing</h2>
+    <p class="section-q">What does each layer recover, and what should the reinsurer charge?</p>
+    <p>Quota share inures to per-event Cat XoL. Layers are set by return period (attach 1-in-5, 10, 20 or 50; exhaust 1-in-50, 100, 200 or 250), as single layers or towers, placed 80% or 100%, with zero or one reinstatement. Premium = (modelled expected loss + 10% × 0.5 × the reinsurer's TVaR capital) ÷ (1 − 10% expenses), with expected reinstatement premium counted as income.</p>
+    <div class="table-wrap"><table><tr><th>Layer</th><th class="n">USD m</th><th class="n">AP</th><th class="n">Years hit</th><th class="n">Burning cost</th><th class="n">Modelled EL</th><th class="n">Premium</th><th class="n">ROL</th><th class="n">Multiple</th></tr><tr><td>1-in-5 to 1-in-50</td><td class="n">1,240–10,000</td><td class="n">20.0%</td><td class="n">3</td><td class="n">843</td><td class="n">510</td><td class="n">1,071</td><td class="n">12.2%</td><td class="n">2.2×</td></tr><tr><td>1-in-5 to 1-in-100</td><td class="n">1,240–18,220</td><td class="n">20.0%</td><td class="n">3</td><td class="n">843</td><td class="n">626</td><td class="n">1,607</td><td class="n">9.5%</td><td class="n">2.7×</td></tr><tr><td>1-in-5 to 1-in-200</td><td class="n">1,240–26,640</td><td class="n">20.0%</td><td class="n">3</td><td class="n">843</td><td class="n">693</td><td class="n">2,124</td><td class="n">8.4%</td><td class="n">3.1×</td></tr><tr><td>1-in-10 to 1-in-50</td><td class="n">2,480–10,000</td><td class="n">10.0%</td><td class="n">2</td><td class="n">612</td><td class="n">323</td><td class="n">784</td><td class="n">10.4%</td><td class="n">2.5×</td></tr><tr><td>1-in-10 to 1-in-100</td><td class="n">2,480–18,220</td><td class="n">10.0%</td><td class="n">2</td><td class="n">612</td><td class="n">440</td><td class="n">1,341</td><td class="n">8.5%</td><td class="n">3.1×</td></tr><tr><td>1-in-10 to 1-in-200</td><td class="n">2,480–26,640</td><td class="n">10.0%</td><td class="n">2</td><td class="n">612</td><td class="n">507</td><td class="n">1,863</td><td class="n">7.7%</td><td class="n">3.8×</td></tr><tr><td>1-in-20 to 1-in-50</td><td class="n">4,590–10,000</td><td class="n">5.0%</td><td class="n">2</td><td class="n">331</td><td class="n">170</td><td class="n">489</td><td class="n">9.0%</td><td class="n">3.0×</td></tr><tr><td>1-in-20 to 1-in-100</td><td class="n">4,590–18,220</td><td class="n">5.0%</td><td class="n">2</td><td class="n">331</td><td class="n">287</td><td class="n">1,060</td><td class="n">7.8%</td><td class="n">3.8×</td></tr><tr><td>1-in-20 to 1-in-200</td><td class="n">4,590–26,640</td><td class="n">5.0%</td><td class="n">2</td><td class="n">331</td><td class="n">353</td><td class="n">1,587</td><td class="n">7.2%</td><td class="n">4.6×</td></tr><tr><td>1-in-50 to 1-in-100</td><td class="n">10,000–18,220</td><td class="n">2.0%</td><td class="n">0</td><td class="n">0</td><td class="n">116</td><td class="n">578</td><td class="n">7.0%</td><td class="n">5.0×</td></tr><tr><td>1-in-50 to 1-in-200</td><td class="n">10,000–26,640</td><td class="n">2.0%</td><td class="n">0</td><td class="n">0</td><td class="n">183</td><td class="n">1,110</td><td class="n">6.7%</td><td class="n">6.1×</td></tr><tr><td>1-in-100 to 1-in-200</td><td class="n">18,220–26,640</td><td class="n">1.0%</td><td class="n">0</td><td class="n">0</td><td class="n">67</td><td class="n">536</td><td class="n">6.4%</td><td class="n">8.1×</td></tr></table></div>
+    <figure><img src="./assets/charts/m6_rol_vs_ap.png" alt="Technical rate on line by attachment probability" loading="lazy"><figcaption>Rate on line falls with attachment probability; the multiple of expected loss rises for remote layers, where capital dominates the price. Burning cost is zero where history never reached, which is why a model is needed.</figcaption></figure>
+  </section>
+
+  <section id="decision" aria-labelledby="h-dec">
+    <h2 id="h-dec">Capital and the programme decision</h2>
+    <p class="section-q">Which programmes are efficient, and which should management choose?</p>
+    <p>Net loss = gross − recoveries + premiums + reinstatement premiums. A fixed premium moves VaR and the mean equally, so capital relief comes only from tail recoveries. Net cost = premiums + expected reinstatement premiums − expected recoveries; implied cost of capital = net cost ÷ capital relief. 79 of 255 programmes are efficient.</p>
+    <figure><img src="./assets/charts/hero_3_frontier.png" alt="Cost-capital frontier with the three management choices" loading="lazy"><figcaption>Every point is a programme; the line is the cost–capital frontier. There is no single optimum: the choice depends on budget, appetite and the cost of the insurer's own capital.</figcaption></figure>
+    <div class="table-wrap"><table><tr><th>Choice</th><th>Programme</th><th class="n">Net cost (USD m)</th><th class="n">Net EC (USD m)</th><th class="n">Relief</th><th class="n">Implied CoC</th></tr><tr><td>Budget-first</td><td>1-in-50 to 1-in-100 Cat XoL, 80% placed, no reinstatement</td><td class="n">370</td><td class="n">18,852</td><td class="n">25.6%</td><td class="n">5.7%</td></tr><tr><td>Balanced (h = 10%)</td><td>20% quota share + 1-in-5 to 1-in-200 Cat XoL, 80% placed, no reinstatement</td><td class="n">1,215</td><td class="n">4,631</td><td class="n">81.7%</td><td class="n">5.9%</td></tr><tr><td>Protection-first</td><td>20% quota share + 1-in-5 to 1-in-200 Cat XoL, 100% placed, no reinstatement</td><td class="n">1,447</td><td class="n">2,338</td><td class="n">90.8%</td><td class="n">6.3%</td></tr></table></div>
+    <h3>Walking up the frontier</h3>
+    <p>The Balanced rule stops before the first step whose marginal cost of capital exceeds the hurdle (8%: <code>QS20_A5_E200_T0_C80_R0</code>; 12%: <code>QS20_A5_E200_T0_C100_R0</code>). Equivalently it minimises net reinsurance cost + 10% × net capital: USD 1,678m against USD 2,532m with no reinsurance.</p>
+    <div class="table-wrap"><table><tr><th>Hull point</th><th class="n">Net cost (USD m)</th><th class="n">Net EC (USD bn)</th><th class="n">Relief</th><th class="n">Marginal CoC</th></tr><tr><td>no reinsurance</td><td class="n">0</td><td class="n">25.3</td><td class="n">0%</td><td class="n">–</td></tr><tr><td>20% quota share only</td><td class="n">287</td><td class="n">20.3</td><td class="n">20%</td><td class="n">5.7%</td></tr><tr><td>20% quota share + 1-in-50 to 1-in-100 Cat XoL, 80% placed, no reinstatement</td><td class="n">583</td><td class="n">15.1</td><td class="n">40%</td><td class="n">5.7%</td></tr><tr><td>20% quota share + 1-in-50 to 1-in-100 Cat XoL, 100% placed, no reinstatement</td><td class="n">657</td><td class="n">13.8</td><td class="n">46%</td><td class="n">5.8%</td></tr><tr><td>20% quota share + 1-in-20 to 1-in-100 Cat XoL, 100% placed, no reinstatement</td><td class="n">905</td><td class="n">9.6</td><td class="n">62%</td><td class="n">5.9%</td></tr><tr><td>20% quota share + 1-in-5 to 1-in-200 Cat XoL, 80% placed, no reinstatement</td><td class="n">1,215</td><td class="n">4.6</td><td class="n">82%</td><td class="n">6.2%</td></tr><tr><td>20% quota share + 1-in-5 to 1-in-200 Cat XoL, 100% placed, no reinstatement</td><td class="n">1,447</td><td class="n">2.3</td><td class="n">91%</td><td class="n">10.1%</td></tr></table></div>
+    <h3>Recommended programme</h3>
+    <div class="table-wrap"><table><tr><th>Treaty</th><th class="n">Attach (USD m)</th><th class="n">Exhaust (USD m)</th><th>Return periods</th><th class="n">AP</th><th class="n">Share</th><th class="n">Reinst.</th><th class="n">Premium (USD m)</th><th class="n">ROL</th><th class="n">Multiple</th></tr><tr><td>Quota share 20%</td><td class="n">–</td><td class="n">–</td><td>all losses</td><td class="n">–</td><td class="n">20%</td><td class="n">–</td><td class="n">597</td><td class="n">–</td><td class="n">–</td></tr><tr><td>Cat XoL 1</td><td class="n">990</td><td class="n">21,310</td><td>1-in-5 to 1-in-200</td><td class="n">20.0%</td><td class="n">80%</td><td class="n">0</td><td class="n">1,369</td><td class="n">8.4%</td><td class="n">3.1×</td></tr></table></div>
+    <figure><img src="./assets/charts/hero_2_gross_net.png" alt="Gross versus net aggregate exceedance for the recommended programme" loading="lazy"><figcaption>The programme trades a higher expected cost in ordinary years for a much thinner tail.</figcaption></figure>
+    <div class="note"><strong>Affordability.</strong> The premium is 76% of the portfolio's own premium. At a 10% hurdle the gross capital would cost USD 2,532m a year, more than the expected margin of USD 1,044m, so transferring the tail is cheaper than holding it. If that premium is not affordable, Budget-first (1-in-50 to 1-in-100 Cat XoL, 80% placed, no reinstatement) releases 26% for USD 370m.</div>
+  </section>
+
+  <section id="validation" aria-labelledby="h-val">
+    <h2 id="h-val">Validation, stresses and sensitivities</h2>
+    <p class="section-q">Would the recommendation survive a different view of the risk or the price?</p>
+    <ul class="tight">
+      <li><strong>Convergence</strong>: gross VaR 99.5 moves 0.17% and the recommended relief 0.14% at 200,000 years.</li>
+      <li><strong>Temporal holdout</strong>: refitted on 2009–2018, the model expected 6.0 events in 2019–2023; 8 occurred (percentile 79%). Hurricane Ian was a 1-in-23 event under that model.</li>
+      <li><strong>Largest event removed</strong>: without Hurricane Harvey, gross capital falls to USD 10,783m and the Balanced choice becomes 20% quota share + 1-in-5 to 1-in-50 Cat XoL, 100% placed, no reinstatement.</li>
+      <li><strong>Year bootstrap</strong> (200 replicates): 90% intervals of 53%–82% for relief and 5.9%–11.0% for the implied cost of capital.</li>
+      <li><strong>Engine checks</strong>: golden values from a hand-worked toy example, treaty identities, and an Excel workbook in live formulas that matches Python in 86 cells (largest relative difference 4e-16).</li>
+    </ul>
+    <div class="table-wrap"><table><tr><th>Scenario</th><th>Balanced choice</th><th>Same contract</th><th class="n">Recommended: relief / CoC</th></tr><tr><td>Event frequency × 1.25</td><td>QS20_A5_E200_T0_C80_R0</td><td>yes</td><td class="n">81% / 6.0%</td></tr><tr><td>Event severity × 1.15</td><td>QS20_A5_E200_T0_C100_R0</td><td>placement only</td><td class="n">81% / 6.0%</td></tr><tr><td>Heavier tail (GPD above median, ξ + 0.1)</td><td>QS20_A5_E200_T0_C100_R0</td><td>placement only</td><td class="n">79% / 6.2%</td></tr><tr><td>Reinsurer CoC 8%</td><td>QS20_A5_E200_T0_C100_R0</td><td>placement only</td><td class="n">82% / 4.8%</td></tr><tr><td>Reinsurer CoC 12%</td><td>QS20_A5_E200_T0_C80_R0</td><td>yes</td><td class="n">82% / 7.0%</td></tr><tr><td>Diversification d = 0.3</td><td>QS20_A5_E200_T0_C100_R0</td><td>placement only</td><td class="n">82% / 3.6%</td></tr><tr><td>Diversification d = 0.7</td><td>QS20_A5_E200_T0_C80_R0</td><td>yes</td><td class="n">82% / 8.1%</td></tr><tr><td>Cedent hurdle 8%</td><td>QS20_A5_E200_T0_C80_R0</td><td>yes</td><td class="n">82% / 5.9%</td></tr><tr><td>Cedent hurdle 12%</td><td>QS20_A5_E200_T0_C100_R0</td><td>placement only</td><td class="n">82% / 5.9%</td></tr><tr><td>Event threshold USD 250m</td><td>QS20_A5_E200_T0_C100_R0</td><td>placement only</td><td class="n">81% / 6.0%</td></tr><tr><td>CPI-only as-if</td><td>QS20_A5_E200_T0_C100_R0</td><td>placement only</td><td class="n">66% / 5.9%</td></tr><tr><td>Calibration from 2010</td><td>QS20_A5_E200_T0_C80_R0</td><td>yes</td><td class="n">82% / 5.9%</td></tr><tr><td>Lognormal attritional</td><td>QS20_A5_E200_T0_C80_R0</td><td>yes</td><td class="n">82% / 5.9%</td></tr><tr><td>Lognormal severity</td><td>QS20_A5_E100_T0_C100_R0</td><td>no</td><td class="n">79% / 7.0%</td></tr><tr><td>Event cap 5× largest event</td><td>QS0_A5_E200_T0_C100_R0</td><td>no</td><td class="n">70% / 6.2%</td></tr><tr><td>No diversification (d = 1)</td><td>QS0_XS0</td><td>no</td><td class="n">82% / 11.5%</td></tr></table></div>
+  </section>
+
+  <section id="benchmark" aria-labelledby="h-bench">
+    <h2 id="h-bench">Market benchmark</h2>
+    <p class="section-q">Are the technical prices the right order of magnitude?</p>
+    <figure><img src="./assets/charts/m10_rol_vs_ap_benchmark.png" alt="Technical pricing versus FEMA placements and FloodSmart Re cat bonds" loading="lazy"><figcaption>Compared by attachment probability, not dollars. Left: rates on line; right: price as a multiple of expected loss.</figcaption></figure>
+    <p>FEMA's traditional NFIP placements cost 18.0%, 19.5% and 18.5% rate on line in 2023–2025, attaching at USD 7bn nationally with 9%–26% shares. The model's layers at similar attachment probabilities price at 7.2%–9.0%, but as multiples of expected loss (2.8–4.6×) they sit with FloodSmart Re cat bonds (2.7–3.0×). The benchmarks cover the national NFIP (all floods for FEMA, named storms only for the cat bonds) and were never used to calibrate the model.</p>
+  </section>
+
+  <section id="limitations" aria-labelledby="h-lim">
+    <h2 id="h-lim">Limitations</h2>
+    <p class="section-q">What the model can and cannot say.</p>
+    <ul class="tight">
+      <li>Historical-event model, not a vendor catastrophe model: no hazard, hydraulics or vulnerability modules.</li>
+      <li>15 calibration years: the 1-in-200 tail rests on the severity family and the event cap. Pre-2009 events (Katrina, Ike) are excluded for lack of consistent exposure data.</li>
+      <li>As-if restatement uses state-level insured value only; 2024–2025 are held out and 2024 is immature; events are FEMA labels, not a treaty hours clause.</li>
+      <li>Attritional losses assumed independent of catastrophes; paid claims exclude loss adjustment expense.</li>
+      <li>Prices use assumed cost of capital, diversification and expenses; economic capital covers this portfolio's insurance risk only.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>Flood Catastrophe Reinsurance &amp; Capital Optimisation · Tom Zhang · Built in Python with an independent Excel check · git <code>903a6f2-dirty</code><br>
+Data: OpenFEMA NFIP Redacted Claims and NFIP Redacted Policies. This product uses the FEMA OpenFEMA API, but is not endorsed by FEMA. The Federal Government or FEMA cannot vouch for the data or analyses derived from these data after the data have been retrieved from the Agency's website(s). The Gulf Coast portfolio is a stylised insurance portfolio calibrated to the exposure and claims experience observed in the NFIP Gulf states; it is not intended to reproduce the finances of the NFIP itself. Reinsurance prices are indicative technical premiums, not market quotes. Economic capital is a 99.5% one-year proxy, not a Solvency II SCR.</footer>
+</body>
+</html>
