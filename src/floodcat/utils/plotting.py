@@ -16,6 +16,6 @@ plt.rcParams.update({
 
 def finish(fig, ax, title: str, subtitle: str = SUBTITLE) -> None:
     """Title plus the SPEC §12 subtitle on every figure."""
-    fig.suptitle(title, x=0.02, ha="left", fontsize=12, fontweight="bold")
+    fig.suptitle(title, x=0.02, ha="left", fontsize=11, fontweight="bold")
     ax.set_title(subtitle, loc="left", fontsize=9, color="0.35")
     fig.tight_layout()
