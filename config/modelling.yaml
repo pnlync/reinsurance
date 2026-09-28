@@ -1,5 +1,5 @@
 # SPEC §5.1 — loss-model rules. Money in USD m (2025 as-if basis).
-event_threshold_u0: 100           # base; user/agent confirms in M2
+event_threshold_u0: 100           # base, confirmed in M2 (decision D12)
 event_threshold_sensitivity: 250
 frequency:
   candidates: [poisson, negbin]

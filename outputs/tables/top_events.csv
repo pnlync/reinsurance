@@ -1,0 +1,11 @@
+event_id,name,year,period,n_claims,loss_nominal,loss_cpi,loss_asif
+2017_hurricane_harvey,Hurricane Harvey,2017,calibration,92398,9055.9,11894.2,8879.6
+2024_hurricane_helene,Hurricane Helene,2024,holdout,54680,6487.2,6657.8,6524.5
+2022_hurricane_ian,Hurricane Ian,2022,calibration,47556,4867.0,5354.1,5261.9
+2016_mid_summer_severe_storms,Mid-summer severe storms,2016,calibration,30019,2534.0,3399.1,2226.0
+2024_hurricane_milton,Hurricane Milton,2024,holdout,21663,1211.2,1243.1,1218.2
+2017_hurricane_irma,Hurricane Irma,2017,calibration,28760,985.5,1294.3,1038.9
+2019_tropical_storm_imelda,Tropical Storm Imelda,2019,calibration,10940,752.9,948.1,619.0
+2021_hurricane_ida,Hurricane Ida,2021,calibration,15090,701.9,833.9,577.0
+2012_hurricane_isaac,Hurricane Isaac,2012,calibration,16926,564.1,791.0,572.2
+2015_early_summer_storms,Early summer storms,2015,calibration,7983,472.3,641.6,541.6
