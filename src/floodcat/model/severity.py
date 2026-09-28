@@ -59,7 +59,8 @@ def fit_truncated(family: str, x: np.ndarray, u0: float) -> dict:
     def nll(theta):
         if np.any(np.abs(theta) > 50):
             return 1e300
-        v = -trunc_loglik(family, _unpack(family, theta), x, u0)
+        with np.errstate(divide="ignore", invalid="ignore", over="ignore"):   # optimiser probes where logsf = -inf
+            v = -trunc_loglik(family, _unpack(family, theta), x, u0)
         return v if np.isfinite(v) else 1e300
 
     base = _start(family, x)

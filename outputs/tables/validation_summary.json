@@ -1,0 +1,16 @@
+{
+  "recommended": "QS20_A5_E200_T0_C80_R0",
+  "convergence_recommended": {
+    "relief_base": 20694.059291851692,
+    "relief_check": 20722.419566339413,
+    "n_years_check": 200000,
+    "rel_diff": 0.001370454877303251,
+    "tolerance": 0.02,
+    "within_tolerance": true
+  },
+  "stress_held": 4,
+  "stress_total": 9,
+  "stress_structure_held": 9,
+  "base_row_matches_m8": true,
+  "git_hash": "78d0eed-dirty"
+}

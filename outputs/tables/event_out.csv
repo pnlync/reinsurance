@@ -1,0 +1,2 @@
+scenario,balanced_id,same_as_base,relief,relief_pct,net_cost,implied_coc,base_rec_relief_pct,base_rec_net_cost,base_rec_implied_coc,gross_ec,removed_event,removed_loss_asif,gross_var_995,gross_ec_995,frequency_mean
+without Hurricane Harvey,QS20_A5_E50_T0_C100_R0,False,8207.860019384163,0.7611545894730655,555.3645943686886,0.06766253238445917,0.7391697976416194,643.2130682693032,0.0806962912480415,10783.433658419279,Hurricane Harvey,8879.572211678646,11775.086787279246,10783.433658419279,1.2666666666666666
