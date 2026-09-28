@@ -1,0 +1,9 @@
+{
+  "n_years_base": 100000,
+  "n_years_check": 200000,
+  "var_995_base": 26873.509909468223,
+  "var_995_check": 26918.229567941387,
+  "rel_diff": 0.0016640795572970823,
+  "tolerance": 0.02,
+  "within_tolerance": true
+}
