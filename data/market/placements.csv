@@ -1,0 +1,10 @@
+year,layer_low_usd_bn,layer_high_usd_bn,share,limit_usd_m,total_premium_usd_m,n_reinsurers,source
+2025,7,9,0.120334,,139.9,27,"Artemis 2025-01-16 https://www.artemis.bm/news/fema-renews-757-8m-of-nfip-flood-reinsurance-for-2025-gets-broader-market-participation/"
+2025,9,11,0.258584,,,,"Artemis 2025-01-16 (share as published; consistent with total limit 757.835)"
+2024,7,9,0.089125,,121.1,18,"Artemis 2024-01-05 https://www.artemis.bm/news/fema-lifts-nfip-traditional-reinsurance-renewal-23-to-619-5m-for-2024/"
+2024,9,11,0.220625,,,,"Artemis 2024-01-05"
+2023,7,9,0.085625,,90.2,18,"Artemis 2023-01-11 https://www.artemis.bm/news/fema-slashes-nfip-reinsurance-renewal-in-half-to-just-502-5m-for-2023/"
+2023,9,11,0.165625,,,,"Artemis 2023-01-11"
+2019,4,6,0.14,,186,28,"FEMA press release 2019-01-30 https://fema.gov/print/pdf/node/342912"
+2019,6,8,0.256,,,,"FEMA press release 2019-01-30"
+2019,8,10,0.266,,,,"FEMA press release 2019-01-30"

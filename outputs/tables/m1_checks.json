@@ -1,0 +1,31 @@
+{
+  "claims_checks": {
+    "rows_raw": 1438050,
+    "duplicate_id_rows": 0,
+    "exact_duplicates_dropped": 0,
+    "null_paid": {
+      "building_paid": 300929,
+      "contents_paid": 300929,
+      "icc_paid": 300929
+    },
+    "negative_paid_rows": 90,
+    "missing_state_or_date_excluded": 0,
+    "year_of_loss_mismatch": 0,
+    "rows_outside_years": 938364,
+    "rows_clean": 499686
+  },
+  "national_inforce_2025": {
+    "records": 3589275.0,
+    "policies": 4677822.0,
+    "tiv": 1289196493600.0
+  },
+  "calibration_start_check": {
+    "ratio_2009": 1.000000298658489,
+    "ratio_2010_plus_min": 0.9991859448539879,
+    "ratio_2010_plus_max": 1.000057286972272,
+    "ratio_2010_plus_mean": 0.9998126306011185,
+    "tolerance": 0.01,
+    "consistent": true
+  },
+  "calibration_start": 2009
+}

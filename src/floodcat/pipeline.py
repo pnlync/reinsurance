@@ -5,7 +5,19 @@ import importlib
 import sys
 
 # step -> "module:function"; filled in as each module is built
-STEPS: dict[str, str] = {}
+STEPS: dict[str, str] = {
+    "data": "floodcat.data.portfolio:run_all",
+    "events": "floodcat.events.report:run",
+    "model": "floodcat.model.fit:run",
+    "simulate": "floodcat.model.simulate:run",
+    "engine": "floodcat.reinsurance.excel:run",
+    "pricing": "floodcat.capital.run:run_pricing",
+    "capital": "floodcat.capital.run:run_capital",
+    "frontier": "floodcat.capital.run:run_frontier",
+    "validate": "floodcat.validation.run:run",
+    "benchmark": "floodcat.validation.benchmark:run",
+    "report": "floodcat.report:run",
+}
 
 ORDER = ["data", "events", "model", "simulate", "engine", "pricing", "capital", "frontier", "validate", "benchmark", "report"]
 

@@ -11,7 +11,29 @@ backtest:
   fit: [2009, 2018]
   test: [2019, 2023]
 history_years: [2009, 2025]       # years built in M1/M2
-# National order-of-magnitude check (CRS R44593, 31 Dec 2025)
+# National order-of-magnitude check (CRS R44593 v72, 5 Mar 2026: "over 4.5 million policies providing over
+# $1.3 trillion in coverage" at 31 Dec 2025). D11: pass if within +/-10% of these reference values.
 crs_check:
-  min_policies: 4.5e6
-  min_coverage_usd: 1.3e12
+  ref_policies: 4500000
+  ref_coverage_usd: 1300000000000
+  tolerance: 0.10
+# CPI-U, U.S. city average, all items, not seasonally adjusted, annual average (BLS series CUUR0000SA0,
+# retrieved 28 Sep 2026). Used only for the `_cpi` sensitivity columns (SPEC §6.2), never in the base case.
+cpi_u_annual:
+  2009: 214.537
+  2010: 218.056
+  2011: 224.939
+  2012: 229.594
+  2013: 232.957
+  2014: 236.736
+  2015: 237.017
+  2016: 240.007
+  2017: 245.120
+  2018: 251.107
+  2019: 255.657
+  2020: 258.811
+  2021: 270.970
+  2022: 292.655
+  2023: 304.702
+  2024: 313.689
+  2025: 321.943

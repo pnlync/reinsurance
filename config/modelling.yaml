@@ -7,9 +7,13 @@ frequency:
 severity:
   candidates: [lognormal, loglogistic, burr12]
   top_n_check: 5                  # fitted vs empirical quantiles on the top 5 events
+  top_ratio_bounds: [0.5, 2.0]    # D8: tail acceptable if fitted/empirical quantile ratio is inside for each of the top 5
 gpd:
   min_exceedances: 25
 event_cap_multiple: 3.0           # cap = 3 x largest as-if calibration event
 attritional:
   base: bootstrap
   sensitivity: lognormal
+# SPEC §6.2: named_storm = name matches hurricane|tropical storm, then reviewed by hand. Hand overrides:
+named_storm_overrides:
+  "June TS Alberto": true         # "TS" abbreviation for Tropical Storm Alberto (2024)

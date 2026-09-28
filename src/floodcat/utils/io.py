@@ -44,6 +44,10 @@ def _validate_portfolio(c: dict) -> None:
     f0, f1 = c["backtest"]["fit"]
     t0, t1 = c["backtest"]["test"]
     _check(s <= f0 < f1 < t0 <= t1 <= e, "backtest fit/test must lie inside calibration, fit before test")
+    crs = c["crs_check"]
+    _check(all(isinstance(crs[k], (int, float)) and crs[k] > 0 for k in ("ref_policies", "ref_coverage_usd")), "crs_check values must be positive numbers")
+    _check(0 < crs["tolerance"] < 1, "crs_check tolerance must be in (0, 1)")
+    _check(all(isinstance(v, (int, float)) for v in c["cpi_u_annual"].values()), "CPI values must be numbers")
 
 
 def _validate_modelling(c: dict) -> None:

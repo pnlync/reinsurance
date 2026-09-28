@@ -1,0 +1,88 @@
+[
+  {
+    "file": "nfip_claims_v3.parquet",
+    "dataset": "NfipClaims",
+    "version": 3,
+    "url": "https://www.fema.gov/api/open/v3/NfipClaims?$select=<fields>&$filter=<slice>&$orderby=id (keyset paging)",
+    "slices": [
+      "state eq 'FL'",
+      "..."
+    ],
+    "n_slices": 5,
+    "fields": [
+      "id",
+      "state",
+      "dateOfLoss",
+      "yearOfLoss",
+      "floodEvent",
+      "eventDesignationNumber",
+      "amountPaidOnBuildingClaim",
+      "amountPaidOnContentsClaim",
+      "amountPaidOnIncreasedCostOfComplianceClaim",
+      "totalBuildingInsuranceCoverage",
+      "totalContentsInsuranceCoverage",
+      "policyCount"
+    ],
+    "download_date": "2026-09-28",
+    "rows": 1438050,
+    "sha256": "5f985da25138a10090a729ec4fa90678a121f053f83b6fcdaa639bcdd78c4213"
+  },
+  {
+    "file": "nfip_policies_v3.parquet",
+    "dataset": "NfipPolicies",
+    "version": 3,
+    "url": "https://www.fema.gov/api/open/v3/NfipPolicies?$select=<fields>&$filter=<slice>&$orderby=id (keyset paging)",
+    "slices": [
+      "propertyState eq 'FL' and policyEffectiveDate ge '2009-01-01' and policyEffectiveDate lt '2009-02-01'",
+      "..."
+    ],
+    "n_slices": 1080,
+    "fields": [
+      "id",
+      "propertyState",
+      "policyEffectiveDate",
+      "policyTerminationDate",
+      "cancellationDateOfFloodPolicy",
+      "endorsementEffectiveDate",
+      "policyTermIndicator",
+      "totalBuildingInsuranceCoverage",
+      "totalContentsInsuranceCoverage",
+      "totalInsurancePremiumOfThePolicy",
+      "policyCount",
+      "originalNBDate",
+      "originalConstructionDate",
+      "reportedZipCode",
+      "latitude",
+      "longitude",
+      "occupancyType",
+      "condominiumCoverageTypeCode",
+      "rolloverTransferCode"
+    ],
+    "download_date": "2026-09-28",
+    "rows": 44281394,
+    "sha256": "d011eb00b0e687c30918050e5105e0b2b199426c9bf4f15fe626e903a437402d"
+  },
+  {
+    "file": "nfip_policies_v3_national_inforce_2025.parquet",
+    "dataset": "NfipPolicies",
+    "version": 3,
+    "url": "https://www.fema.gov/api/open/v3/NfipPolicies?$select=<fields>&$filter=<slice>&$orderby=id (keyset paging)",
+    "slices": [
+      "policyEffectiveDate ge '2020-01-01' and policyEffectiveDate lt '2020-02-01' and policyTerminationDate gt '2025-12-31'",
+      "..."
+    ],
+    "n_slices": 72,
+    "fields": [
+      "id",
+      "propertyState",
+      "policyEffectiveDate",
+      "policyTerminationDate",
+      "totalBuildingInsuranceCoverage",
+      "totalContentsInsuranceCoverage",
+      "policyCount"
+    ],
+    "download_date": "2026-09-28",
+    "rows": 3589275,
+    "sha256": "754229761c519431d4132d6374975356e4944fb65322fb82775aa1de282045a4"
+  }
+]
