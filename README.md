@@ -43,7 +43,7 @@ make all     # first run downloads and freezes the OpenFEMA data through the API
 make test
 ```
 
-Every number above is written by the pipeline to `outputs/` (see `outputs/cv_numbers.json`, git `0182dd7-dirty`).
+Every number above is written by the pipeline to `outputs/` (see `outputs/cv_numbers.json`, git `93c173f`).
 
 ## Data and disclaimer
 
