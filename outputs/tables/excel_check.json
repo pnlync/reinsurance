@@ -1,0 +1,524 @@
+{
+  "n_cells": 86,
+  "max_rel_diff": 3.714665111241756e-16,
+  "tolerance": 0.0001,
+  "pass": true,
+  "cells": [
+    {
+      "cell": "toy!H11",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!H12",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!H13",
+      "python": 5.0,
+      "excel": 5,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "toy!H14",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!H15",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!H16",
+      "python": 50.0,
+      "excel": 50,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "toy!H17",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!H18",
+      "python": 30.0,
+      "excel": 30,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "toy!H19",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!H20",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!I11",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!I12",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!I13",
+      "python": 0.1,
+      "excel": 0.1,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "toy!I14",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!I15",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!I16",
+      "python": 1.0,
+      "excel": 1,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "toy!I17",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!I18",
+      "python": 0.6,
+      "excel": 0.6,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "toy!I19",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!I20",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "toy!H21",
+      "python": 8.5,
+      "excel": 8.5,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "toy!H22",
+      "python": 3.0,
+      "excel": 3,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "history!J11",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J12",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J13",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J14",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J15",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J16",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J17",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J18",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J19",
+      "python": 6399.572211999999,
+      "excel": 6399.572212,
+      "rel_diff": 1.421180465887254e-16
+    },
+    {
+      "cell": "history!J20",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J21",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J22",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J23",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J24",
+      "python": 2781.888376,
+      "excel": 2781.888376,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "history!J25",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K11",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K12",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K13",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K14",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K15",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K16",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K17",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K18",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K19",
+      "python": 0.8510069430851063,
+      "excel": 0.851006943085106,
+      "rel_diff": 2.60919851158988e-16
+    },
+    {
+      "cell": "history!K20",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K21",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K22",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K23",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!K24",
+      "python": 0.369931964893617,
+      "excel": 0.369931964893617,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "history!K25",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!J26",
+      "python": 612.0973725333332,
+      "excel": 612.097372533333,
+      "rel_diff": 3.714665111241756e-16
+    },
+    {
+      "cell": "history!J27",
+      "python": 2.0,
+      "excel": 2,
+      "rel_diff": 0.0
+    },
+    {
+      "cell": "history!Q11",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q12",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q13",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q14",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q15",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q16",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q17",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q18",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q19",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q20",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q21",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q22",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q23",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q24",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q25",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R11",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R12",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R13",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R14",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R15",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R16",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R17",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R18",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R19",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R20",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R21",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R22",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R23",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R24",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!R25",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q26",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    },
+    {
+      "cell": "history!Q27",
+      "python": 0.0,
+      "excel": 0,
+      "rel_diff": 0
+    }
+  ]
+}
