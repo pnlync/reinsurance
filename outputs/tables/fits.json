@@ -1,0 +1,247 @@
+{
+  "u0": 100,
+  "n_events": 20,
+  "n_years": 15,
+  "frequency": {
+    "family": "poisson",
+    "mean": 1.3333333333333333,
+    "size": null,
+    "loglik_poisson": -21.806439015986207,
+    "loglik_nb": -21.795469556100695,
+    "lr_stat": 0.021938919771024246,
+    "dispersion_index": 1.1428571428571428,
+    "n_years": 15,
+    "trend": {
+      "slope_per_year": 0.07664421770930317,
+      "p_value": 0.1517249352981679
+    },
+    "nb_size": 29.00204323458791
+  },
+  "severity": {
+    "candidates": {
+      "lognormal": {
+        "family": "lognormal",
+        "params": {
+          "mu": 4.991674657947539,
+          "sigma": 1.7558310271294897
+        },
+        "loglik": -150.6509115802382,
+        "k": 2,
+        "n": 20,
+        "aic": 305.3018231604764,
+        "bic": 307.29328770758434,
+        "converged": true,
+        "at_boundary": false,
+        "top_check": [
+          {
+            "rank": 1,
+            "empirical": 8879.5722,
+            "prob": 0.9524,
+            "fitted": 4222.9305,
+            "ratio": 0.4756,
+            "p_order": 0.2852
+          },
+          {
+            "rank": 2,
+            "empirical": 5261.8884,
+            "prob": 0.9048,
+            "fitted": 2400.601,
+            "ratio": 0.4562,
+            "p_order": 0.1572
+          },
+          {
+            "rank": 3,
+            "empirical": 2226.0281,
+            "prob": 0.8571,
+            "fitted": 1658.7322,
+            "ratio": 0.7452,
+            "p_order": 0.3447
+          },
+          {
+            "rank": 4,
+            "empirical": 1038.9374,
+            "prob": 0.8095,
+            "fitted": 1246.697,
+            "ratio": 1.2,
+            "p_order": 0.6949
+          },
+          {
+            "rank": 5,
+            "empirical": 618.9753,
+            "prob": 0.7619,
+            "fitted": 982.5966,
+            "ratio": 1.5875,
+            "p_order": 0.8854
+          }
+        ],
+        "tail_ok": true,
+        "mean_finite": true,
+        "acceptable": true
+      },
+      "loglogistic": {
+        "family": "loglogistic",
+        "params": {
+          "shape_c": 1.1944522108060154,
+          "scale": 239.69149675941168
+        },
+        "loglik": -150.38209228926704,
+        "k": 2,
+        "n": 20,
+        "aic": 304.76418457853407,
+        "bic": 306.75564912564204,
+        "converged": true,
+        "at_boundary": false,
+        "top_check": [
+          {
+            "rank": 1,
+            "empirical": 8879.5722,
+            "prob": 0.9524,
+            "fitted": 3830.2961,
+            "ratio": 0.4314,
+            "p_order": 0.3024
+          },
+          {
+            "rank": 2,
+            "empirical": 5261.8884,
+            "prob": 0.9048,
+            "fitted": 2078.1967,
+            "ratio": 0.395,
+            "p_order": 0.1397
+          },
+          {
+            "rank": 3,
+            "empirical": 2226.0281,
+            "prob": 0.8571,
+            "fitted": 1432.9062,
+            "ratio": 0.6437,
+            "p_order": 0.2567
+          },
+          {
+            "rank": 4,
+            "empirical": 1038.9374,
+            "prob": 0.8095,
+            "fitted": 1088.9542,
+            "ratio": 1.0481,
+            "p_order": 0.5879
+          },
+          {
+            "rank": 5,
+            "empirical": 618.9753,
+            "prob": 0.7619,
+            "fitted": 872.2792,
+            "ratio": 1.4092,
+            "p_order": 0.8395
+          }
+        ],
+        "tail_ok": true,
+        "mean_finite": true,
+        "acceptable": true
+      },
+      "burr12": {
+        "family": "burr12",
+        "params": {
+          "shape_c": 4.14793129965291,
+          "shape_d": 0.22173495988045783,
+          "scale": 163.84004544397862
+        },
+        "loglik": -149.70884255408723,
+        "k": 3,
+        "n": 20,
+        "aic": 305.41768510817445,
+        "bic": 308.4048819288364,
+        "converged": true,
+        "at_boundary": false,
+        "top_check": [
+          {
+            "rank": 1,
+            "empirical": 8879.5722,
+            "prob": 0.9524,
+            "fitted": 4620.8612,
+            "ratio": 0.5204,
+            "p_order": 0.4109
+          },
+          {
+            "rank": 2,
+            "empirical": 5261.8884,
+            "prob": 0.9048,
+            "fitted": 2174.8144,
+            "ratio": 0.4133,
+            "p_order": 0.2062
+          },
+          {
+            "rank": 3,
+            "empirical": 2226.0281,
+            "prob": 0.8571,
+            "fitted": 1399.4353,
+            "ratio": 0.6287,
+            "p_order": 0.2846
+          },
+          {
+            "rank": 4,
+            "empirical": 1038.9374,
+            "prob": 0.8095,
+            "fitted": 1023.4663,
+            "ratio": 0.9851,
+            "p_order": 0.5341
+          },
+          {
+            "rank": 5,
+            "empirical": 618.9753,
+            "prob": 0.7619,
+            "fitted": 802.8158,
+            "ratio": 1.297,
+            "p_order": 0.7692
+          }
+        ],
+        "tail_ok": true,
+        "mean_finite": false,
+        "acceptable": true
+      }
+    },
+    "chosen": "loglogistic",
+    "params": {
+      "shape_c": 1.1944522108060154,
+      "scale": 239.69149675941168
+    },
+    "any_acceptable": true,
+    "rationale": "Chosen: loglogistic, the lowest AIC among acceptable candidates. loglogistic: AIC 304.76, acceptable | lognormal: AIC 305.30, acceptable | burr12: AIC 305.42, acceptable"
+  },
+  "gpd": {
+    "base_allowed": false,
+    "min_exceedances": 25,
+    "tail_stress": {
+      "threshold": 339.0043234056723,
+      "xi": 1.0163030492099614,
+      "beta": 461.00722863193687,
+      "n_exceed": 10
+    }
+  },
+  "largest_event": 8879.572211678646,
+  "cap": 26638.716635035937,
+  "attritional": {
+    "values": [
+      193.5099686712507,
+      95.94348653949423,
+      73.13336553496235,
+      138.06223914116984,
+      136.01789947586076,
+      58.34019513899828,
+      182.011790263933,
+      144.7522053660154,
+      174.12087790199084,
+      133.40508330326335,
+      234.79327443228516,
+      273.85587972101575,
+      110.36449052569144,
+      115.06475049486713,
+      62.927715733606
+    ],
+    "mean": 141.75354814962697,
+    "sd": 61.67650713452621,
+    "lognormal": {
+      "mu": 4.867403666270542,
+      "sigma": 0.4163803719244709
+    }
+  },
+  "git_hash": "dd04b2c-dirty"
+}

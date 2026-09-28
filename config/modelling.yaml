@@ -7,7 +7,9 @@ frequency:
 severity:
   candidates: [lognormal, loglogistic, burr12]
   top_n_check: 5                  # fitted vs empirical quantiles on the top 5 events
-  top_ratio_bounds: [0.5, 2.0]    # D8: tail acceptable if fitted/empirical quantile ratio is inside for each of the top 5
+  # D8: tail acceptable if, for each of the top 5 events, P(k-th largest of n simulated events >= observed)
+  # under the fitted model lies in this band (a two-sided 90% order-statistic check)
+  top_order_stat_band: [0.05, 0.95]
 gpd:
   min_exceedances: 25
 event_cap_multiple: 3.0           # cap = 3 x largest as-if calibration event
